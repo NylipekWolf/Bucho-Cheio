@@ -21,7 +21,7 @@ app.register(fastifyCors, { origin: "*" });
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: "Typed API",
+      title: "Bucho cheio API",
       version: "1.0.0",
     },
   },

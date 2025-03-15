@@ -16,8 +16,8 @@ export async function routesMesa(app: FastifyTypeInstance) {
         },
       },
     },
-    () => {
-      return [];
+    async (request, reply) => {
+      return reply.status(200).send();
     }
   );
 
