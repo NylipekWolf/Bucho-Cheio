@@ -1,4 +1,5 @@
 import z from "zod";
+
 export const ingredientesResponse = z
   .object({
     qtd: z.number().positive().describe("Quantidade do Ingrediente"),
@@ -8,6 +9,7 @@ export const ingredientesResponse = z
     preco: z.number().positive().describe("Preco do Ingrediente"),
   })
   .describe("Ingredientes Response");
+
 export const createIngrediente = z
   .object({
     qtd: z.number({}).max(500).min(0),
