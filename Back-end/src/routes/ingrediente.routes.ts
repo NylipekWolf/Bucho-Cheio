@@ -56,21 +56,4 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
       return reply.status(200).send();
     }
   )
-
-  //Tinhamos pensado anteirormente, melhor revisar com as mudanças dos diagramas de classe
-  app.get(
-    "ingredientes/historico",
-    {
-      schema: {
-        tags: [tags.INGREDIENTE],
-        description: "Lista historico dos ingredientes",
-        response: {
-          200: ingredientesResponse,
-        },
-      },
-    },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
-  )
 }
