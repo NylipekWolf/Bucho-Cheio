@@ -38,5 +38,24 @@ export async function routesMesa(app: FastifyTypeInstance) {
       return reply.status(201).send();
     }
   );
+  app.delete(
+    "/mesa",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para deletar uma mesa",
+        body: z.object({
+          numero: z.number().positive(),
+        }),
+        response: {
+          200: mesaResponse,
+          201: z.string().describe("teste"),
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
 }
 export const zodMesa = zodToJsonSchema(mesaResponse);
