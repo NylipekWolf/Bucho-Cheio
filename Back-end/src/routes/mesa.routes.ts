@@ -27,7 +27,11 @@ export async function routesMesa(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.MESA],
         description: "Metodo para adicionar uma nova mesa",
-        body: createMesa.describe("CreateMesa"),
+        body: z.object({
+          numero: z.number().int().positive(),
+              disponivel: z.boolean(),
+              comanda: z.object({})
+        }),
         response: {
           200: mesaResponse,
           201: z.string().describe("teste"),
