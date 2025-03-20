@@ -61,5 +61,65 @@ export async function routesMesa(app: FastifyTypeInstance) {
       return reply.status(201).send();
     }
   );
+  app.put(
+    "/mesa",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para atualizar uma mesa",
+        body: z.object({
+          id: z.number().positive(),
+          numero: z.number().positive(),
+          qtdLugares: z.number().positive(),
+          status: z.number().int(),
+        }),
+        response: {
+          200: z.string(),
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
+  app.put(
+    "/mesa/quantidadeLugares",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para atualizar quantidade de lugares em uma mesa",
+        body: z.object({
+          id: z.number().positive(),
+          qtdLugares: z.number().positive(),
+        }),
+        response: {
+          200: z.string(),
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
+  app.put(
+    "/mesa/status",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para atualizar o status de uma mesa",
+        body: z.object({
+          id: z.number().positive(),
+          status: z.number().int().max(2).min(0),
+        }),
+        response: {
+          200: z.string(),
+
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
 }
 export const zodMesa = zodToJsonSchema(mesaResponse);
