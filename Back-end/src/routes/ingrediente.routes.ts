@@ -45,12 +45,31 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
         tags: [tags.INGREDIENTE],
         description: "Metodo para atualizar quantidade de ingrediente",
         body: z.object({
-            qtd: z.number({}).max(500).min(0) //Não existe schema só para quantidade
+            qtd: z.number({}).negative() //Não existe schema só para quantidade
         }),
         response: {
           200: ingredientesResponse
         }
       }
+    },
+    async (request, reply) => {
+      return reply.status(200).send();
+    }
+  )
+
+  app.delete(
+    "/ingrediente",
+    {
+      schema: {
+        tags: [tags.INGREDIENTE],
+        description: "Deleta um item de ingredientes atraves do Id",
+        body: z.object({
+          id: z.number({}).positive(), //Placeholder até implementação da intregação com a base de dados
+        }),
+        response: {
+          200: ingredientesResponse.describe("O seguinte item foi deletado")
+        }
+      },
     },
     async (request, reply) => {
       return reply.status(200).send();
