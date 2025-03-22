@@ -1,4 +1,8 @@
-import { createIngrediente, filtroIngrediente, ingredientesResponse } from "../schemas/ingrediente-schema";
+import {
+  createIngrediente,
+  filtroIngrediente,
+  ingredientesResponse,
+} from "../schemas/ingrediente-schema";
 import { FastifyTypeInstance } from "../types";
 import { tags } from "../utils/tags";
 import z from "zod";
@@ -13,6 +17,9 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
         querystring: filtroIngrediente,
         response: {
           200: z.array(ingredientesResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
@@ -29,12 +36,15 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
         description: "Metodo para adicionar um novo ingrediente",
         body: createIngrediente,
         response: {
-          200: ingredientesResponse,
+          201: ingredientesResponse,
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(200).send();
+      return reply.status(201).send();
     }
   );
 
@@ -50,6 +60,9 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
         }),
         response: {
           200: ingredientesResponse,
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
@@ -68,12 +81,15 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
           id: z.number().positive(),
         }),
         response: {
-          200: z.string(),
+          204: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(200).send("Ingrediente removido com sucesso.");
+      return reply.status(204).send("Ingrediente removido com sucesso.");
     }
   );
 
@@ -86,6 +102,9 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
         querystring: filtroIngrediente,
         response: {
           200: z.array(ingredientesResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },

@@ -1,4 +1,9 @@
-import { comandaCreate, comandaRequest, comandaResponse, filtroComanda } from "../schemas/comanda-schema";
+import {
+  comandaCreate,
+  comandaRequest,
+  comandaResponse,
+  filtroComanda,
+} from "../schemas/comanda-schema";
 import { FastifyTypeInstance } from "../types";
 import { tags } from "../utils/tags";
 import z from "zod";
@@ -13,6 +18,9 @@ export async function routesComanda(app: FastifyTypeInstance) {
         querystring: filtroComanda,
         response: {
           200: z.array(comandaResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
@@ -29,12 +37,15 @@ export async function routesComanda(app: FastifyTypeInstance) {
         description: "Cadastra nova Comanda",
         body: comandaCreate,
         response: {
-          200: comandaResponse,
+          201: comandaResponse,
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(200).send();
+      return reply.status(201).send();
     }
   );
 
@@ -46,8 +57,11 @@ export async function routesComanda(app: FastifyTypeInstance) {
         description: "Atualiza as informações da comanda",
         body: comandaRequest,
         response: {
-            200: comandaResponse
-        }
+          200: comandaResponse,
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
+        },
       },
     },
     async (request, reply) => {
@@ -58,39 +72,46 @@ export async function routesComanda(app: FastifyTypeInstance) {
   app.put(
     "/comanda/status",
     {
-        schema: {
-            tags: [tags.COMANDA],
-            description: "Modifica o status da comanda",
-            body: z.object({
-                id: z.number()
-            }),
-            response: {
-                200: z.string()
-            }
-        }
+      schema: {
+        tags: [tags.COMANDA],
+        description: "Modifica o status da comanda",
+        body: z.object({
+          id: z.number(),
+        }),
+        response: {
+          200: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
+        },
+      },
     },
     async (request, reply) => {
-        return reply.status(200).send("Status modificado com sucesso.");
+      return reply.status(200).send("Status modificado com sucesso.");
     }
-  )
+  );
 
   app.delete(
     "/comanda",
     {
-        schema: {
-            tags: [tags.COMANDA],
-            description: "Remove uma comanda",
-            body: z.object({
-                id: z.number().positive()
-            }),
-            response: {
-                200: z.string(),
-            }
-        }
-    }, 
+      schema: {
+        tags: [tags.COMANDA],
+        description: "Remove uma comanda",
+        body: z.object({
+          id: z.number().positive(),
+        }),
+        response: {
+          204: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
+        },
+      },
+    },
     async (request, reply) => {
-        return reply.status(200).send("Comanda removida com sucesso.");
-  });
+      return reply.status(204).send("Comanda removida com sucesso.");
+    }
+  );
 
   app.get(
     "/comanda/historico",
@@ -100,12 +121,15 @@ export async function routesComanda(app: FastifyTypeInstance) {
         description: "Lista o historico de comandas",
         querystring: filtroComanda,
         response: {
-          200: z.array(comandaResponse)
-        }
-      }
+          200: z.array(comandaResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
+        },
+      },
     },
     async (request, reply) => {
       return reply.status(200).send();
     }
-  )
+  );
 }

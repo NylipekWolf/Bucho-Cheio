@@ -1,4 +1,9 @@
-import { createPedidos, filtroPedido, pedidosResponse, pedidoStatusRequest } from "../schemas/pedido-schema";
+import {
+  createPedidos,
+  filtroPedido,
+  pedidosResponse,
+  pedidoStatusRequest,
+} from "../schemas/pedido-schema";
 import { FastifyTypeInstance } from "../types";
 import { tags } from "../utils/tags";
 import z from "zod";
@@ -13,6 +18,9 @@ export async function routesPedido(app: FastifyTypeInstance) {
         querystring: filtroPedido,
         response: {
           200: z.array(pedidosResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
@@ -29,12 +37,15 @@ export async function routesPedido(app: FastifyTypeInstance) {
         description: "Cria um novo pedido",
         body: createPedidos,
         response: {
-          200: pedidosResponse,
+          201: pedidosResponse,
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(200).send();
+      return reply.status(201).send();
     }
   );
 
@@ -47,6 +58,9 @@ export async function routesPedido(app: FastifyTypeInstance) {
         body: pedidoStatusRequest,
         response: {
           200: pedidosResponse,
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
@@ -65,12 +79,15 @@ export async function routesPedido(app: FastifyTypeInstance) {
           id: z.number().positive(),
         }),
         response: {
-          200: z.string(),
+          204: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(200).send("Pedido removido com sucesso.");
+      return reply.status(204).send("Pedido removido com sucesso.");
     }
   );
 
@@ -83,6 +100,9 @@ export async function routesPedido(app: FastifyTypeInstance) {
         querystring: filtroPedido,
         response: {
           200: z.array(pedidosResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
