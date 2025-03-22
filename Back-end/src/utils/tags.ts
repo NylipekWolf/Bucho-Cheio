@@ -4,4 +4,6 @@ export const tags = {
   INGREDIENTE: "Ingrediente",
   LOJA: "Loja",
   FORNECEDOR: "Fornecedor",
+  PEDIDO: "Pedido",
+  COMANDA: "Comanda",
 };

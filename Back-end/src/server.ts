@@ -12,6 +12,8 @@ import { routesMesa, zodMesa } from "./routes/mesa.routes";
 import { createMesa, mesaResponse } from "./schemas/mesa-schema";
 import { routesIngrediente } from "./routes/ingrediente.routes";
 import { routesFornecedor } from "./routes/fornecedor.routes";
+import { routesPedido } from "./routes/pedido.routes";
+import { routesComanda } from "./routes/comanda.routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.setValidatorCompiler(validatorCompiler);
@@ -38,6 +40,8 @@ app.addSchema({ $id: "CreateMesa", ...createMesa });
 app.register(routesMesa);
 app.register(routesIngrediente);
 app.register(routesFornecedor);
+app.register(routesPedido);
+app.register(routesComanda);
 
 const start = async () => {
   await app.listen({ port: 3000 });

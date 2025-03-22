@@ -1,22 +1,23 @@
 import {
-  createIngrediente,
-  filtroIngrediente,
-  ingredientesResponse,
-} from "../schemas/ingrediente-schema";
+  createPedidos,
+  filtroPedido,
+  pedidosResponse,
+  pedidoStatusRequest,
+} from "../schemas/pedido-schema";
 import { FastifyTypeInstance } from "../types";
 import { tags } from "../utils/tags";
 import z from "zod";
 
-export async function routesIngrediente(app: FastifyTypeInstance) {
+export async function routesPedido(app: FastifyTypeInstance) {
   app.get(
-    "/ingrediente",
+    "/pedido",
     {
       schema: {
-        tags: [tags.INGREDIENTE],
-        description: "Lista todas as ingredientes",
-        querystring: filtroIngrediente,
+        tags: [tags.PEDIDO],
+        description: "Lista os pedidos",
+        querystring: filtroPedido,
         response: {
-          200: z.array(ingredientesResponse),
+          200: z.array(pedidosResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),
@@ -29,14 +30,14 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
   );
 
   app.post(
-    "/ingrediente",
+    "/pedido",
     {
       schema: {
-        tags: [tags.INGREDIENTE],
-        description: "Metodo para adicionar um novo ingrediente",
-        body: createIngrediente,
+        tags: [tags.PEDIDO],
+        description: "Cria um novo pedido",
+        body: createPedidos,
         response: {
-          201: ingredientesResponse,
+          201: pedidosResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
@@ -49,17 +50,14 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
   );
 
   app.put(
-    "/ingredientes",
+    "/pedido",
     {
       schema: {
-        tags: [tags.INGREDIENTE],
-        description: "Metodo para atualizar quantidade de ingrediente",
-        body: z.object({
-          id: z.number().positive(),
-          qtd: z.number().positive(), //Não existe schema só para quantidade
-        }),
+        tags: [tags.PEDIDO],
+        description: "Atualiza o status do pedido",
+        body: pedidoStatusRequest,
         response: {
-          200: ingredientesResponse,
+          200: pedidosResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
@@ -72,11 +70,11 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
   );
 
   app.delete(
-    "/ingrediente",
+    "/pedido",
     {
       schema: {
-        tags: [tags.INGREDIENTE],
-        description: "Deleta um item de ingredientes atraves do Id",
+        tags: [tags.PEDIDO],
+        description: "Deleta um item de pedidos atraves do Id",
         body: z.object({
           id: z.number().positive(),
         }),
@@ -89,19 +87,19 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
       },
     },
     async (request, reply) => {
-      return reply.status(204).send("Ingrediente removido com sucesso.");
+      return reply.status(204).send("Pedido removido com sucesso.");
     }
   );
 
   app.get(
-    "/ingrediente/historico",
+    "/pedido/historico",
     {
       schema: {
-        tags: [tags.INGREDIENTE],
-        description: "Lista historico dos ingredientes",
-        querystring: filtroIngrediente,
+        tags: [tags.PEDIDO],
+        description: "Lista historico dos pedidos",
+        querystring: filtroPedido,
         response: {
-          200: z.array(ingredientesResponse),
+          200: z.array(pedidosResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),
