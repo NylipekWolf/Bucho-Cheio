@@ -12,7 +12,7 @@ export const createEndereco = z
     logradouro: z.string().max(255).min(5),
     numero: z.number().positive(),
     cep: z.string().max(8),
-    complemento: z.string().max(65),
+    complemento: z.string().max(65).optional(),
     
   })
   .describe("Criar Endereco");
