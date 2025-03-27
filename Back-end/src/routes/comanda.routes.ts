@@ -4,7 +4,7 @@ import {
   comandaResponse,
   filtroComanda,
 } from "../schemas/comanda-schema";
-import { FastifyTypeInstance } from "../types";
+import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
 import z from "zod";
 

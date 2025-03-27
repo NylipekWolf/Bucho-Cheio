@@ -8,12 +8,13 @@ import {
 } from "fastify-type-provider-zod";
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
-import { routesMesa, zodMesa } from "./routes/mesa.routes";
-import { createMesa, mesaResponse } from "./schemas/mesa-schema";
-import { routesIngrediente } from "./routes/ingrediente.routes";
-import { routesFornecedor } from "./routes/fornecedor.routes";
-import { routesPedido } from "./routes/pedido.routes";
-import { routesComanda } from "./routes/comanda.routes";
+import { routesComanda } from "../routes/comanda.routes";
+import { routesFornecedor } from "../routes/fornecedor.routes";
+import { routesIngrediente } from "../routes/ingrediente.routes";
+import { zodMesa, routesMesa } from "../routes/mesa.routes";
+import { routesPedido } from "../routes/pedido.routes";
+import { routesUsuario } from "../routes/usuario.routes";
+import { createMesa } from "../schemas/mesa-schema";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.setValidatorCompiler(validatorCompiler);
@@ -42,6 +43,7 @@ app.register(routesIngrediente);
 app.register(routesFornecedor);
 app.register(routesPedido);
 app.register(routesComanda);
+app.register(routesUsuario);
 
 const start = async () => {
   await app.listen({ port: 3000 });

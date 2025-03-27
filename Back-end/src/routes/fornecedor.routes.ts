@@ -1,4 +1,5 @@
-import { FastifyTypeInstance } from "../types";
+import { fornecedorResponse } from "../schemas/fornecedor-schema";
+import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
 import z from "zod";
 
@@ -10,12 +11,16 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
         tags: [tags.FORNECEDOR],
         description: "Lista todas as fornecedor",
         response: {
-          200: z.object({}),
+          200: z.array(fornecedorResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
-    () => {
-      return [];
+    (request, reply) => {
+      try {
+      } catch (error) {}
     }
   );
 
@@ -28,13 +33,20 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
         body: z.object({
           nome: z.string().max(60),
           quantidade: z.number().positive(),
-          validade: z.date(),
           fornecedor: z.string(),
         }),
+        response: {
+          201: fornecedorResponse,
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
+        },
       },
     },
     async (request, reply) => {
-      return reply.status(201).send();
+      try {
+        return console.log(request.body);
+      } catch (error) {}
     }
   );
 }

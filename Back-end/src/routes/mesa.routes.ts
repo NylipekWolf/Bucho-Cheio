@@ -1,5 +1,10 @@
-import { createMesa, mesaResponse } from "../schemas/mesa-schema";
-import { FastifyTypeInstance } from "../types";
+import {
+  createMesa,
+  filtroMesa,
+  mesaRequest,
+  mesaResponse,
+} from "../schemas/mesa-schema";
+import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
 import z from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
@@ -11,13 +16,18 @@ export async function routesMesa(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.MESA],
         description: "Lista todas as mesas",
+        querystring: filtroMesa,
         response: {
-          200: mesaResponse,
+          200: z.array(mesaResponse),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(200).send();
+      try {
+      } catch (error) {}
     }
   );
 
@@ -27,19 +37,18 @@ export async function routesMesa(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.MESA],
         description: "Metodo para adicionar uma nova mesa",
-        body: z.object({
-          numero: z.number().int().positive(),
-              disponivel: z.boolean(),
-              comanda: z.object({})
-        }),
+        body: createMesa,
         response: {
           200: mesaResponse,
-          201: z.string().describe("teste"),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(201).send();
+      try {
+      } catch (error) {}
     }
   );
   app.delete(
@@ -49,16 +58,21 @@ export async function routesMesa(app: FastifyTypeInstance) {
         tags: [tags.MESA],
         description: "Metodo para deletar uma mesa",
         body: z.object({
-          numero: z.number().positive(),
+          numero: z.number().positive().int(),
         }),
         response: {
-          200: mesaResponse,
-          201: z.string().describe("teste"),
+          204: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(201).send();
+      try {
+      } catch (error) {
+        return reply.status(500).send("Erro interno no servidor");
+      }
     }
   );
   app.put(
@@ -67,19 +81,20 @@ export async function routesMesa(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.MESA],
         description: "Metodo para atualizar uma mesa",
-        body: z.object({
-          id: z.number().positive(),
-          numero: z.number().positive(),
-          qtdLugares: z.number().positive(),
-          status: z.number().int(),
-        }),
+        body: mesaRequest,
         response: {
           200: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(201).send();
+      try {
+      } catch (error) {
+        return reply.status(500).send("Erro interno no servidor");
+      }
     }
   );
   app.put(
@@ -94,11 +109,17 @@ export async function routesMesa(app: FastifyTypeInstance) {
         }),
         response: {
           200: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(201).send();
+      try {
+      } catch (error) {
+        return reply.status(500).send("Erro interno no servidor");
+      }
     }
   );
   app.put(
@@ -113,12 +134,17 @@ export async function routesMesa(app: FastifyTypeInstance) {
         }),
         response: {
           200: z.string(),
-
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
         },
       },
     },
     async (request, reply) => {
-      return reply.status(201).send();
+      try {
+      } catch (error) {
+        return reply.status(500).send("Erro interno no servidor");
+      }
     }
   );
 }

@@ -6,4 +6,5 @@ export const tags = {
   FORNECEDOR: "Fornecedor",
   PEDIDO: "Pedido",
   COMANDA: "Comanda",
+  USUARIO: "Usuario",
 };
