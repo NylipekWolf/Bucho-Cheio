@@ -27,10 +27,93 @@ export async function routesMesa(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.MESA],
         description: "Metodo para adicionar uma nova mesa",
-        body: createMesa.describe("CreateMesa"),
+        body: z.object({
+          numero: z.number().int().positive(),
+              disponivel: z.boolean(),
+              comanda: z.object({})
+        }),
         response: {
           200: mesaResponse,
           201: z.string().describe("teste"),
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
+  app.delete(
+    "/mesa",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para deletar uma mesa",
+        body: z.object({
+          numero: z.number().positive(),
+        }),
+        response: {
+          200: mesaResponse,
+          201: z.string().describe("teste"),
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
+  app.put(
+    "/mesa",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para atualizar uma mesa",
+        body: z.object({
+          id: z.number().positive(),
+          numero: z.number().positive(),
+          qtdLugares: z.number().positive(),
+          status: z.number().int(),
+        }),
+        response: {
+          200: z.string(),
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
+  app.put(
+    "/mesa/quantidadeLugares",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para atualizar quantidade de lugares em uma mesa",
+        body: z.object({
+          id: z.number().positive(),
+          qtdLugares: z.number().positive(),
+        }),
+        response: {
+          200: z.string(),
+        },
+      },
+    },
+    async (request, reply) => {
+      return reply.status(201).send();
+    }
+  );
+  app.put(
+    "/mesa/status",
+    {
+      schema: {
+        tags: [tags.MESA],
+        description: "Metodo para atualizar o status de uma mesa",
+        body: z.object({
+          id: z.number().positive(),
+          status: z.number().int().max(2).min(0),
+        }),
+        response: {
+          200: z.string(),
+
         },
       },
     },
