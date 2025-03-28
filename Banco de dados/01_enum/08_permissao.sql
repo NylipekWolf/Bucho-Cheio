@@ -1,0 +1,19 @@
+CREATE TYPE Permissao AS ENUM (
+    'CriarMesa',
+    'CriarFornecedor',
+    'CriarProduto',
+    'CriarComanda',
+    'CriarIngrediente',
+    'EditarMesa',
+    'EditarFornecedor',
+    'EditarProduto',
+    'EditarComanda',
+    'EditarIngrediente',
+    'ExcluirMesa',
+    'ExcluirFornecedor',
+    'ExcluirProduto',
+    'ExcluirComanda',
+    'ExcluirIngrediente',
+    'VisualizarRelatorios',
+    'GerenciarUsuarios'
+);
