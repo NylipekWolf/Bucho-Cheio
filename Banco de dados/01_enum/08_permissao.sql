@@ -1,4 +1,4 @@
-CREATE TYPE Permissao AS ENUM (
+CREATE TYPE bucho_cheio.Permissao AS ENUM (
     'CriarMesa',
     'CriarFornecedor',
     'CriarProduto',

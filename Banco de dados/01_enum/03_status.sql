@@ -1,4 +1,4 @@
-CREATE TYPE Status AS ENUM (
+CREATE TYPE bucho_cheio.Status AS ENUM (
     'Registrado',
     'Andamento',
     'Finalizado',

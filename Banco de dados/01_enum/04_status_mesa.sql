@@ -1,5 +1,5 @@
-CREATE TYPE StatusMesa AS ENUM (
-    'Disponivel',
+CREATE TYPE bucho_cheio.StatusMesa AS ENUM (
+    'Disponível',
     'Ocupada',
     'Reservada',
     'Limpando',

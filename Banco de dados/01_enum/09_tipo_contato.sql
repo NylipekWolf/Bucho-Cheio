@@ -1,4 +1,4 @@
-CREATE TYPE TipoContato AS ENUM (
+CREATE TYPE bucho_cheio.TipoContato AS ENUM (
     'Telefone',
     'Email',
     'WhatsApp',

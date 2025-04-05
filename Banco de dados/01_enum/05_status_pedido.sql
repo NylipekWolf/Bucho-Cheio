@@ -1,6 +1,6 @@
-CREATE TYPE StatusPedido AS ENUM (
+CREATE TYPE bucho_cheio.StatusPedido AS ENUM (
     'Pendente',
-    'EmPreparo',
+    'Em preparo',
     'Pronto',
     'Entregue',
     'Cancelado'

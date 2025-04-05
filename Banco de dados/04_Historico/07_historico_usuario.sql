@@ -1,9 +1,9 @@
-CREATE TABLE HistoricoPagamento (
+CREATE TABLE bucho_cheio.HistoricoUsuario (
     id SERIAL PRIMARY KEY,
-    id_pagamento INT REFERENCES Pagamento(id) ON DELETE CASCADE,
+    id_usuario INTEGER REFERENCES Usuario(id) ON DELETE CASCADE,
     acao VARCHAR(10) NOT NULL CHECK (acao IN ('CREATE', 'UPDATE', 'DELETE')),
     dados_antigos TEXT,
     dados_novos TEXT,
-    id_usuario INT REFERENCES Usuario(id) ON DELETE CASCADE,
+    id_usuario_responsavel INTEGER REFERENCES Usuario(id) ON DELETE CASCADE,
     data_alteracao TIMESTAMP NOT NULL
 );
