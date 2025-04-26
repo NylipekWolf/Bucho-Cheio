@@ -39,7 +39,7 @@ app.addSchema({ $id: "CreateMesa", ...createMesa });
 
 app.register(routesMesa);
 app.register(routesIngrediente);
-app.register(routesFornecedor);
+// app.register(routesFornecedor);
 app.register(routesPedido);
 app.register(routesComanda);
 
