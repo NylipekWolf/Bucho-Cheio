@@ -1,13 +1,15 @@
-import z from "zod";
+import z, { number, ZodNumber } from "zod";
 
 //Padronização do Schema dos pedidos
+//Os Schemas de Response precisam ter o mesmo nome das colunas na tabela de dados
 export const pedidosResponse = z
   .object({
     id: z.number(),
     id_produto: z.number(),
     id_comanda: z.number(),
     status: z.string().describe("Status da comanda"),
-    data_hora: z.unknown().describe("Data do pedido"), //Originalmente z.string().datetime().describe("Data do pedido"), mas causa erro de validação
+    data_hora: z.string().datetime().describe("Data do pedido"),
+    //Originalmente z.string().datetime().describe("Data do pedido"), mas causa erro de validação com o valor retornado pelo SQL
   })
   .describe("Pedido Response");
 
@@ -24,8 +26,19 @@ export const pedidoStatusRequest = z.object({
 }).describe("Request para modificar o status do pedido.")
 
 export const filtroPedido = z.object({
-  status: z.array(z.number().int()).optional(),
-  produto: z.array(z.number().int()).optional(),
+  //Union para aceitar tanto array de Strings e só uma String
+  //função transform para tranformar String em Array de Strings (Para facilitar com a lógica da filtragem na camada Service)
+  status: z.union([
+    z.array(z. string()),
+    z.string()
+  ]).transform(val => (Array.isArray(val) ? val : val ? [val] : [])).optional(),
+
+  //Função coerce tranforma o input do JSON, que vem no formato string no Integer valido
+  produto: z.union([
+    z.array(z.coerce.number().int()),
+    z.coerce.number().int()
+  ]).transform(val => (Array.isArray(val) ? val : val ? [val] : [])).optional(),
+
   data: z.string().datetime().optional()
 }).describe("Filtro para métodos de listagem.")
 

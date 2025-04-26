@@ -7,14 +7,8 @@ export async function controllerGetPedido(
   request: FastifyRequest<{ Querystring: filtroPedidoQuery }>,
   reply: FastifyReply
 ) {
-  //const hasPermission = await checkUserPermission();
   const { status, produto, data } = filtroPedido.parse(request.query);
   const listaPedidos = await serviceGetPedido(status, produto, data);
-
-  //Response 401 - Se tiver
-  // if(!hasPermission){
-  //   return reply.status(401).send("Não autorizado");
-  // }
 
   try {
     // response 404 e 200
@@ -33,14 +27,8 @@ export async function controllerPostPedido(
   request: FastifyRequest<{ Body: createPedidoBody }>,
   reply: FastifyReply
 ) {
-  //const hasPermission = await checkUserPermission();
   const { idProduto, idComanda } = createPedidos.parse(request.body);
   const pedidoCriado = await servicePostPedido(idProduto, idComanda);
-
-  //Response 401
-  // if(!hasPermission){
-  //   return reply.status(401).send("Não autorizado");
-  // }
 
   try {
     if(pedidoCriado === null) {
@@ -57,14 +45,8 @@ export async function controllerPutPedido(
   request: FastifyRequest<{ Body: putPedidoBody }>,
   reply: FastifyReply
 ) {
-  //const hasPermission = await checkUserPermission();
   const { id, status } = pedidoStatusRequest.parse(request.body);
   const pedidoModificado = await servicePutPedido(id, status);
-
-  //Response 401
-  // if(!hasPermission){
-  //   return reply.status(401).send("Não autorizado");
-  // }
 
   try {
     if(pedidoModificado === null) {
@@ -81,14 +63,8 @@ export async function controllerDeletePedido(
   request: FastifyRequest<{ Body: {id: number} }>,
   reply: FastifyReply
 ) {
-  //const hasPermission = await checkUserPermission();
   const { id } = z.object({id: z.number().positive()}).parse(request.body);
   const pedidoDeletado = await serviceDeletePedido(id);
-
-  //Response 401
-  // if(!hasPermission){
-  //   return reply.status(401).send("Não autorizado");
-  // }
 
   try {
     if(pedidoDeletado) {

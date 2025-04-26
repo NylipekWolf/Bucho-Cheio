@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { comandaCreate, comandaRequest, createComandaBody, filtroComanda, filtroComandaQuery, pedidoComandaBody } from "../schemas/comanda-schema";
+import { comandaCreate, comandaRequest, createComandaBody, filtroComanda, filtroComandaQuery, putComandaBody } from "../schemas/comanda-schema";
 import { serviceDeleteComanda, serviceGetComanda, servicePostComanda, servicePutComanda, servicePutComandaStatus } from "../services/comanda.service";
 import z from "zod";
 
@@ -7,14 +7,8 @@ export async function controllerGetComanda(
   request: FastifyRequest<{ Querystring: filtroComandaQuery }>,
   reply: FastifyReply
 ) {
-  //const hasPermission = await checkUserPermission();
   const { id, status, mesa } = filtroComanda.parse(request.query);
   const listaComandas = await serviceGetComanda(id, status, mesa);
-
-  //Response 401 - Se tiver
-  // if(!hasPermission){
-  //   return reply.status(401).send("Não autorizado");
-  // }
 
   try {
     // response 404 e 200
@@ -54,7 +48,7 @@ export async function controllerPostComanda(
 }
 
 export async function controllerPutComanda(
-  request: FastifyRequest<{ Body: pedidoComandaBody }>,
+  request: FastifyRequest<{ Body: putComandaBody }>,
   reply: FastifyReply
 ) {
   //const hasPermission = await checkUserPermission();

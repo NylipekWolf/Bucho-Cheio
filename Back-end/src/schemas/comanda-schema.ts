@@ -38,11 +38,14 @@ export const comandaImprimirResponse = z.object({
 }).describe("Response para imprimir a comanda");
 
 export const filtroComanda = z.object({
-  id: z.number().optional(),
-  status: z.array(z.number().int()).optional(),
-  mesa: z.number().optional(),
+  id: z.coerce.number().optional(),
+  status: z.union([
+      z.array(z.string()),
+      z.string()
+    ]).transform(val => (Array.isArray(val) ? val : val ? [val] : [])).optional(),
+  mesa: z.coerce.number().optional(),
 }).describe("Filtro para métodos de listagem.");
 
 export type filtroComandaQuery = z.infer<typeof filtroComanda>;
 export type createComandaBody = z.infer<typeof comandaCreate>;
-export type pedidoComandaBody = z.infer<typeof comandaRequest>;
+export type putComandaBody = z.infer<typeof comandaRequest>;

@@ -5,5 +5,3 @@ export const categoriaResponse = z
     id: z.number({}),
   })
   .describe("Categoria Response");
-
-
