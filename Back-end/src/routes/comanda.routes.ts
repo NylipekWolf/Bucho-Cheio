@@ -1,3 +1,4 @@
+import { controllerDeleteComanda, controllerGetComanda, controllerPostComanda, controllerPutComanda, controllerPutComandaStatus } from "../controllers/comanda.controllers";
 import {
   comandaCreate,
   comandaRequest,
@@ -23,9 +24,7 @@ export async function routesComanda(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
-    },
-    async (request, reply) => {
-      return reply.status(200).send();
+      handler: controllerGetComanda
     }
   );
 
@@ -43,9 +42,7 @@ export async function routesComanda(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
-    },
-    async (request, reply) => {
-      return reply.status(201).send();
+      handler: controllerPostComanda
     }
   );
 
@@ -63,10 +60,8 @@ export async function routesComanda(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
+      handler: controllerPutComanda
     },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
   );
 
   app.put(
@@ -85,10 +80,8 @@ export async function routesComanda(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
+      handler: controllerPutComandaStatus
     },
-    async (request, reply) => {
-      return reply.status(200).send("Status modificado com sucesso.");
-    }
   );
 
   app.delete(
@@ -107,10 +100,8 @@ export async function routesComanda(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
+      handler: controllerDeleteComanda
     },
-    async (request, reply) => {
-      return reply.status(204).send("Comanda removida com sucesso.");
-    }
   );
 
   app.get(

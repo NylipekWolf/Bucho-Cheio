@@ -2,12 +2,12 @@ import z from "zod";
 
 export const comandaResponse = z
   .object({
-    id: z.number({}),
-    nome: z.string(),
-    pedido: z.array(z.number()).describe("Pedido da comanda"),
-    preco: z.number({}).positive().describe("Preco da comanda"),
-    status: z.number({}).int().max(2).min(0).describe("Status da comanda"),
-    mesa: z.number().optional(),
+    id: z.number(),
+    nome: z.string().nullable(),
+    preco: z.number().describe("Preco da comanda"),
+    status: z.string().describe("Status da comanda"),
+    id_mesa: z.number().optional().nullable(),
+    id_usuario: z.number().optional()
   })
   .describe("Comanda Response");
 
@@ -38,7 +38,14 @@ export const comandaImprimirResponse = z.object({
 }).describe("Response para imprimir a comanda");
 
 export const filtroComanda = z.object({
-  id: z.number().optional(),
-  status: z.array(z.number().int()).optional(),
-  mesa: z.number().optional(),
+  id: z.coerce.number().optional(),
+  status: z.union([
+      z.array(z.string()),
+      z.string()
+    ]).transform(val => (Array.isArray(val) ? val : val ? [val] : [])).optional(),
+  mesa: z.coerce.number().optional(),
 }).describe("Filtro para métodos de listagem.");
+
+export type filtroComandaQuery = z.infer<typeof filtroComanda>;
+export type createComandaBody = z.infer<typeof comandaCreate>;
+export type putComandaBody = z.infer<typeof comandaRequest>;

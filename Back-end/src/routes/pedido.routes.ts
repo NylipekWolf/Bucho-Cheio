@@ -1,3 +1,5 @@
+
+import { controllerDeletePedido, controllerGetPedido, controllerPostPedido, controllerPutPedido } from "../controllers/pedido.controllers";
 import {
   createPedidos,
   filtroPedido,
@@ -8,6 +10,7 @@ import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
 import z from "zod";
 
+//Definição de rotas de pedidos
 export async function routesPedido(app: FastifyTypeInstance) {
   app.get(
     "/pedido",
@@ -23,10 +26,8 @@ export async function routesPedido(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
+      handler: controllerGetPedido
     },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
   );
 
   app.post(
@@ -43,9 +44,7 @@ export async function routesPedido(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
-    },
-    async (request, reply) => {
-      return reply.status(201).send();
+      handler: controllerPostPedido
     }
   );
 
@@ -63,10 +62,8 @@ export async function routesPedido(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
+      handler: controllerPutPedido
     },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
   );
 
   app.delete(
@@ -85,9 +82,7 @@ export async function routesPedido(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
-    },
-    async (request, reply) => {
-      return reply.status(204).send("Pedido removido com sucesso.");
+      handler: controllerDeletePedido
     }
   );
 
