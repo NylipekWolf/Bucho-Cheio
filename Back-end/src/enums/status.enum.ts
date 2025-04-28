@@ -1,3 +1,5 @@
+import z from "zod";
+
 export enum status{
     Disponivel,
     EmAndamento,
@@ -13,3 +15,17 @@ export enum statusIngrediente{
     PraVencer,
     Vencido
  }
+
+export const statusPedido = z.enum([
+    'Pendente',
+    'Em preparo',
+    'Pronto',
+    'Entregue',
+    'Cancelado'
+]);
+
+export const statusComanda = z.enum([
+    'Aberta',
+    'Fechada', 
+    'Cancelada'
+]);

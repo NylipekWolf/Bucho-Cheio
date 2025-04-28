@@ -1,28 +1,44 @@
 import { sql } from "../database";
+import { comandaCreate, comandaRequest, filtroComanda } from "../schemas/comanda-schema";
 
-export async function serviceGetComanda(id: number | undefined, status: string[] | undefined, mesa: number | undefined) {
+export async function getComandaService(filtro: filtroComanda) {
+    //Filtragem
+    const conditions: string[] = []; //Array de condições em formato para construção Query com Clausula Where
+    const values: any[] = [];
+
+    if (filtro.id) {
+        conditions.push(`id = $${values.length + 1}`);
+        values.push(filtro.id);
+    }
+    if (filtro.mesa) {
+        conditions.push(`id_mesa = $${values.length + 1}`);
+        values.push(filtro.mesa);
+    }
+    if (filtro.status) {
+        conditions.push(`status = ANY($${values.length + 1})`);
+        values.push(filtro.status);
+    }
+
+    const whereClause = conditions.length > 0
+    ? `WHERE ${conditions.join(" AND ")}`
+    : "";
+
+    const query = `
+    SELECT *
+    FROM bucho_cheio.comanda
+    ${whereClause}`;
+
     try{
-        //Filtragem
-        if (id) {
-            const dados = await sql`SELECT * FROM bucho_cheio.comanda WHERE id=${id}`;
-            return dados;
-        } else if (mesa) {
-            const dados = await sql`SELECT * FROM bucho_cheio.comanda WHERE id_mesa=${mesa}`;
-            return dados;
-        } else if(status) {
-            const dados = await sql`SELECT * FROM bucho_cheio.comanda WHERE status=ANY(${status})`;
-            return dados;
-        } else {
-            const dados = await sql`SELECT * FROM bucho_cheio.comanda`;
-            return dados;
-        }
+    //Função SQL.unsafe recebe (query, argumentos da query)
+        const dados = await sql.unsafe(query, values)
+        return dados;
     } catch (err) {
         // console.log(err);
         return [];
     }
 }
 
-export async function servicePostComanda(nome: string | undefined, pedido: number[], mesa: number | undefined) {
+export async function postComandaService(request: comandaCreate) {
     //Testes if para nome e mesa
     //precisa fazer uma correção na tabela pois não existe espaço para pedidos
     //Como vamos lidar com id_usuario, é NOT NULL no pgsql
@@ -38,11 +54,11 @@ export async function servicePostComanda(nome: string | undefined, pedido: numbe
     }
 }
 
-export async function servicePutComanda(id: number, pedidos: number[]) {
+export async function putComandaService(request: comandaRequest) {
     try { //Precisa atualizar banco de dados para adicionar pedidos
         // const comandaModificada = await sql`UPDATE bucho_cheio.comanda
 	    //     SET pedidos=${pedidos} WHERE id=${id} returning *`;
-        const comandaModificada = await sql`SELECT * FROM bucho_cheio.comanda WHERE id=${id}`;
+        const comandaModificada = await sql`SELECT * FROM bucho_cheio.comanda WHERE id=${request.id}`;
         return comandaModificada[0];
     } catch (err) { //Melhorar menssagens de erro para Bad Request
         // console.log(err);
@@ -50,7 +66,7 @@ export async function servicePutComanda(id: number, pedidos: number[]) {
     }
 }
 
-export async function servicePutComandaStatus(id: number) {
+export async function putComandaStatusService(id: number) {
     try {
         const comandaModificada = await sql`SELECT * FROM bucho_cheio.comanda WHERE id=${id}`;
         return comandaModificada[0];
@@ -60,7 +76,7 @@ export async function servicePutComandaStatus(id: number) {
     }
 }
 
-export async function serviceDeleteComanda(id: number) {
+export async function deleteComandaService(id: number) {
     try {
         const testeId = await sql`SELECT COUNT(*) FROM bucho_cheio.comanda WHERE id=${id};`; //Checagem se id existe
         if (testeId[0].count > 0) {

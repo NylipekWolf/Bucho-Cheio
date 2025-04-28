@@ -1,8 +1,9 @@
-import z, { number, ZodNumber } from "zod";
+import z from "zod";
+import { statusPedido } from "../enums/status.enum";
 
 //Padronização do Schema dos pedidos
 //Os Schemas de Response precisam ter o mesmo nome das colunas na tabela de dados
-export const pedidosResponse = z
+export const zPedidosResponse = z
   .object({
     id: z.number(),
     id_produto: z.number(),
@@ -13,24 +14,24 @@ export const pedidosResponse = z
   })
   .describe("Pedido Response");
 
-export const createPedidos = z
+export const zCreatePedidos = z
   .object({
     idProduto: z.number(),
     idComanda: z.number(),
   })
   .describe("Create Pedidos");
 
-export const pedidoStatusRequest = z.object({
+export const zPedidoStatusRequest = z.object({
   id: z.number(),
   status: z.string()
 }).describe("Request para modificar o status do pedido.")
 
-export const filtroPedido = z.object({
+export const zFiltroPedido = z.object({
   //Union para aceitar tanto array de Strings e só uma String
   //função transform para tranformar String em Array de Strings (Para facilitar com a lógica da filtragem na camada Service)
   status: z.union([
-    z.array(z. string()),
-    z.string()
+    z.array(statusPedido),
+    statusPedido
   ]).transform(val => (Array.isArray(val) ? val : val ? [val] : [])).optional(),
 
   //Função coerce tranforma o input do JSON, que vem no formato string no Integer valido
@@ -43,6 +44,6 @@ export const filtroPedido = z.object({
 }).describe("Filtro para métodos de listagem.")
 
 //Exportação desses schemas como tipo para uso em funções de controllers
-export type filtroPedidoQuery = z.infer<typeof filtroPedido>;
-export type createPedidoBody = z.infer<typeof createPedidos>;
-export type putPedidoBody = z.infer<typeof pedidoStatusRequest>;
+export type filtroPedido = z.infer<typeof zFiltroPedido>;
+export type createPedido = z.infer<typeof zCreatePedidos>;
+export type pedidoStatusRequest = z.infer<typeof zPedidoStatusRequest>;

@@ -1,9 +1,9 @@
-import { controllerDeleteComanda, controllerGetComanda, controllerPostComanda, controllerPutComanda, controllerPutComandaStatus } from "../controllers/comanda.controllers";
+import { deleteComandaController, getComandaController, postComandaController, putComandaController, putComandaStatusController } from "../controllers/comanda.controllers";
 import {
-  comandaCreate,
-  comandaRequest,
-  comandaResponse,
-  filtroComanda,
+  zComandaCreate,
+  zComandaRequest,
+  zComandaResponse,
+  zFiltroComanda,
 } from "../schemas/comanda-schema";
 import { FastifyTypeInstance } from "../types";
 import { tags } from "../utils/tags";
@@ -16,15 +16,15 @@ export async function routesComanda(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.COMANDA],
         description: "Lista as comandas",
-        querystring: filtroComanda,
+        querystring: zFiltroComanda,
         response: {
-          200: z.array(comandaResponse),
+          200: z.array(zComandaResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
-      handler: controllerGetComanda
+      handler: getComandaController
     }
   );
 
@@ -34,15 +34,15 @@ export async function routesComanda(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.COMANDA],
         description: "Cadastra nova Comanda",
-        body: comandaCreate,
+        body: zComandaCreate,
         response: {
-          201: comandaResponse,
+          201: zComandaResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
-      handler: controllerPostComanda
+      handler: postComandaController
     }
   );
 
@@ -52,15 +52,15 @@ export async function routesComanda(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.COMANDA],
         description: "Atualiza as informações da comanda",
-        body: comandaRequest,
+        body: zComandaRequest,
         response: {
-          200: comandaResponse,
+          200: zComandaResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
-      handler: controllerPutComanda
+      handler: putComandaController
     },
   );
 
@@ -80,7 +80,7 @@ export async function routesComanda(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
-      handler: controllerPutComandaStatus
+      handler: putComandaStatusController
     },
   );
 
@@ -100,7 +100,7 @@ export async function routesComanda(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
-      handler: controllerDeleteComanda
+      handler: deleteComandaController
     },
   );
 
@@ -110,9 +110,9 @@ export async function routesComanda(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.COMANDA],
         description: "Lista o historico de comandas",
-        querystring: filtroComanda,
+        querystring: zFiltroComanda,
         response: {
-          200: z.array(comandaResponse),
+          200: z.array(zComandaResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),

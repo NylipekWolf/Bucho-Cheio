@@ -1,6 +1,7 @@
 import z from "zod";
+import { statusComanda } from "../enums/status.enum";
 
-export const comandaResponse = z
+export const zComandaResponse = z
   .object({
     id: z.number(),
     nome: z.string().nullable(),
@@ -11,20 +12,20 @@ export const comandaResponse = z
   })
   .describe("Comanda Response");
 
-export const comandaRequest = z
+export const zComandaRequest = z
   .object({
     id: z.number(),
     pedidos: z.array(z.number()),
   })
   .describe("Request para adicionar pedidos");
 
-export const comandaCreate = z.object({
+export const zComandaCreate = z.object({
   nome: z.string().optional(),
   pedido: z.array(z.number()),
   mesa: z.number().optional(),
 }).describe("Criação de Comanda");
 
-export const comandaImprimirResponse = z.object({
+export const zComandaImprimirResponse = z.object({
   pedidos: z.array(
     z.object({
       nomeProduto: z.string(),
@@ -37,15 +38,15 @@ export const comandaImprimirResponse = z.object({
   dataFim: z.string().date()
 }).describe("Response para imprimir a comanda");
 
-export const filtroComanda = z.object({
+export const zFiltroComanda = z.object({
   id: z.coerce.number().optional(),
   status: z.union([
-      z.array(z.string()),
-      z.string()
+      z.array(statusComanda),
+      statusComanda
     ]).transform(val => (Array.isArray(val) ? val : val ? [val] : [])).optional(),
   mesa: z.coerce.number().optional(),
 }).describe("Filtro para métodos de listagem.");
 
-export type filtroComandaQuery = z.infer<typeof filtroComanda>;
-export type createComandaBody = z.infer<typeof comandaCreate>;
-export type putComandaBody = z.infer<typeof comandaRequest>;
+export type filtroComanda = z.infer<typeof zFiltroComanda>;
+export type comandaCreate = z.infer<typeof zComandaCreate>;
+export type comandaRequest = z.infer<typeof zComandaRequest>;
