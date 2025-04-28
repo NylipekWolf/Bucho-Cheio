@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { comandaCreate, comandaRequest, filtroComanda, zFiltroComanda } from "../schemas/comanda-schema";
+import { comandaCreate, comandaRequest, comandaStatusRequest, filtroComanda, zFiltroComanda } from "../schemas/comanda-schema";
 import { deleteComandaService, getComandaService, postComandaService, putComandaService, putComandaStatusService} from "../services/comanda.service";
 import z from "zod";
 
@@ -12,7 +12,7 @@ export async function getComandaController(
   try {
     // response 404 e 200
     if (listaComandas.length === 0) {
-      return reply.status(404).send("Nenhum pedido encontrado");
+      return reply.status(404).send("Nenhuma comanda encontrado");
     } else {
       return reply.status(200).send(listaComandas);
     }
@@ -52,7 +52,7 @@ export async function putComandaController(
 
   try {
     if(comandaModificada === null) {
-      return reply.status(404).send("Pedido não existe"); //Qual code usar
+      return reply.status(404).send("Comanda não existe"); //Qual code usar
     } else {
       return reply.status(200).send(comandaModificada);
     }
@@ -62,14 +62,14 @@ export async function putComandaController(
 }
 
 export async function putComandaStatusController(
-  request: FastifyRequest<{ Body: {id: number} }>,
+  request: FastifyRequest<{ Body: comandaStatusRequest }>,
   reply: FastifyReply
 ) {
-  const comandaModificada = await putComandaStatusService(request.body.id);
+  const comandaModificada = await putComandaStatusService(request.body);
 
   try {
     if(comandaModificada === null) {
-      return reply.status(404).send("Pedido não existe"); //Qual code usar
+      return reply.status(404).send("Comanda não existe"); //Qual code usar
     } else {
       return reply.status(200).send(comandaModificada);
     }
@@ -86,9 +86,9 @@ export async function deleteComandaController(
 
   try {
     if(pedidoDeletado) {
-      return reply.status(204).send("Pedido removido com sucesso.");
+      return reply.status(204).send("Comanda removida com sucesso.");
     } else {
-      return reply.status(404).send("Pedido não existe");
+      return reply.status(404).send("Comanda não existe");
     }
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");

@@ -14,7 +14,7 @@ export enum statusIngrediente{
     Fresco,
     PraVencer,
     Vencido
- }
+}
 
 export const statusPedido = z.enum([
     'Pendente',

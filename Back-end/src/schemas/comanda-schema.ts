@@ -8,21 +8,28 @@ export const zComandaResponse = z
     preco: z.number().describe("Preco da comanda"),
     status: z.string().describe("Status da comanda"),
     id_mesa: z.number().optional().nullable(),
-    id_usuario: z.number().optional()
+    id_usuario: z.number().optional(),
+    pedidos: z.array(z.number()).nullable()
   })
   .describe("Comanda Response");
 
 export const zComandaRequest = z
   .object({
-    id: z.number(),
-    pedidos: z.array(z.number()),
+    id: z.coerce.number(),
+    pedidos: z.array(z.coerce.number()),
   })
-  .describe("Request para adicionar pedidos");
+  .describe("Request para adicionar pedidos para comanda");
+
+export const zComandaStatusRequest = z
+  .object({
+    id: z.coerce.number(),
+    status: statusComanda
+  }).describe("Request para mudar status da comanda.")
 
 export const zComandaCreate = z.object({
   nome: z.string().optional(),
-  pedido: z.array(z.number()),
-  mesa: z.number().optional(),
+  pedido: z.array(z.coerce.number()),
+  mesa: z.coerce.number().optional(),
 }).describe("Criação de Comanda");
 
 export const zComandaImprimirResponse = z.object({
@@ -50,3 +57,4 @@ export const zFiltroComanda = z.object({
 export type filtroComanda = z.infer<typeof zFiltroComanda>;
 export type comandaCreate = z.infer<typeof zComandaCreate>;
 export type comandaRequest = z.infer<typeof zComandaRequest>;
+export type comandaStatusRequest = z.infer<typeof zComandaStatusRequest>;

@@ -59,9 +59,14 @@ export async function postPedidoService(request: createPedido) {
 
 export async function putPedidoService(request: pedidoStatusRequest) {
     try {
-        const pedidoModificado = await sql`UPDATE bucho_cheio.pedido
-	        SET status=${request.status} WHERE id=${request.id} returning *`;
-        return pedidoModificado[0];
+        const testeId = await sql`SELECT COUNT(*) FROM bucho_cheio.pedido WHERE id=${request.id};`;
+        if (testeId[0].count > 0) {
+            const pedidoModificado = await sql`UPDATE bucho_cheio.pedido
+	            SET status=${request.status} WHERE id=${request.id} returning *`;
+            return pedidoModificado[0];
+        } else {
+            return null;    
+        }
     } catch (err) { //Melhorar menssagens de erro para Bad Request
         // console.log(err);
         return null;

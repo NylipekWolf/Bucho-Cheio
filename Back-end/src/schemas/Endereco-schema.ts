@@ -7,6 +7,7 @@ export const enderecoResponse = z
     complemento: z.string(),
   })
   .describe("Endereco Response");
+  
 export const createEndereco = z
   .object({
     logradouro: z.string().max(255).min(5),

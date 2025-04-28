@@ -3,6 +3,7 @@ import {
   zComandaCreate,
   zComandaRequest,
   zComandaResponse,
+  zComandaStatusRequest,
   zFiltroComanda,
 } from "../schemas/comanda-schema";
 import { FastifyTypeInstance } from "../types";
@@ -70,11 +71,9 @@ export async function routesComanda(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.COMANDA],
         description: "Modifica o status da comanda",
-        body: z.object({
-          id: z.number(),
-        }),
+        body: zComandaStatusRequest,
         response: {
-          200: z.string(),
+          200: zComandaResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),

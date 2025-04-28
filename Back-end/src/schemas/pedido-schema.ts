@@ -16,14 +16,14 @@ export const zPedidosResponse = z
 
 export const zCreatePedidos = z
   .object({
-    idProduto: z.number(),
-    idComanda: z.number(),
+    idProduto: z.coerce.number(),
+    idComanda: z.coerce.number(),
   })
   .describe("Create Pedidos");
 
 export const zPedidoStatusRequest = z.object({
-  id: z.number(),
-  status: z.string()
+  id: z.coerce.number(),
+  status: statusPedido
 }).describe("Request para modificar o status do pedido.")
 
 export const zFiltroPedido = z.object({
