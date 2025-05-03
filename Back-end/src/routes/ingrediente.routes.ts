@@ -1,7 +1,9 @@
+import { deleteIngredienteController, getIngredienteController, postIngredienteController, putIngredienteController } from "../controllers/ingrediente.controllers";
 import {
-  createIngrediente,
-  filtroIngrediente,
-  ingredientesResponse,
+  zCreateIngrediente,
+  zFiltroIngrediente,
+  zIngredienteRequest,
+  zIngredientesResponse,
 } from "../schemas/ingrediente-schema";
 import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
@@ -14,18 +16,16 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.INGREDIENTE],
         description: "Lista todas as ingredientes",
-        querystring: filtroIngrediente,
+        querystring: zFiltroIngrediente,
         response: {
-          200: z.array(ingredientesResponse),
+          200: z.array(zIngredientesResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
+      handler: getIngredienteController
     },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
   );
 
   app.post(
@@ -34,18 +34,16 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.INGREDIENTE],
         description: "Metodo para adicionar um novo ingrediente",
-        body: createIngrediente,
+        body: zCreateIngrediente,
         response: {
-          201: ingredientesResponse,
+          201: zIngredientesResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
+      handler: postIngredienteController
     },
-    async (request, reply) => {
-      return reply.status(201).send();
-    }
   );
 
   app.put(
@@ -54,21 +52,16 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.INGREDIENTE],
         description: "Metodo para atualizar quantidade de ingrediente",
-        body: z.object({
-          id: z.number().positive(),
-          qtd: z.number().positive(), //Não existe schema só para quantidade
-        }),
+        body: zIngredienteRequest,
         response: {
-          200: ingredientesResponse,
+          200: zIngredientesResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
+      handler: putIngredienteController
     },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
   );
 
   app.delete(
@@ -87,10 +80,8 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
+      handler: deleteIngredienteController
     },
-    async (request, reply) => {
-      return reply.status(204).send("Ingrediente removido com sucesso.");
-    }
   );
 
   app.get(
@@ -99,9 +90,9 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.INGREDIENTE],
         description: "Lista historico dos ingredientes",
-        querystring: filtroIngrediente,
+        querystring: zFiltroIngrediente,
         response: {
-          200: z.array(ingredientesResponse),
+          200: z.array(zIngredientesResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),

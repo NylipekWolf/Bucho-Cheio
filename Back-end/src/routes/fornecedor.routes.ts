@@ -1,5 +1,4 @@
-import { fornecedorResponse } from "../schemas/fornecedor-schema";
-import { FastifyTypeInstance } from "../config/types";
+import { FastifyTypeInstance } from "../types";
 import { tags } from "../utils/tags";
 import z, { number } from "zod";
 import { createContato } from "../schemas/contato-schema";
@@ -20,9 +19,15 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
         },
       },
     },
-    (request, reply) => {
+     async (request, reply) => {
       try {
-      } catch (error) {}
+     /*   const fornecedores = await findAllFornecedores(); 
+        if (fornecedores.length === 0) {
+          return reply.status(404).send("Nenhum fornecedor encontrado");
+        }
+        return reply.status(200).send(fornecedores);
+      } catch (error) {
+        return reply.status(500).send("Erro no servidor");*/
     }
   );
 
@@ -53,16 +58,6 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
      },
     },
     async (request, reply) => {
-      try {
-      /*  const fornecedorData = request.body; 
-        await createFornecedor(fornecedorData); 
-        return reply.status(201).send("Fornecedor criado com sucesso");
-      } catch (error) {
-        if (error instanceof z.ZodError) {
-          return reply.status(400).send("Erro de validação com os dados fornecidos");
-        }
-        return reply.status(500).send("Erro no servidor");
-      }*/
     }
   );
 
@@ -98,27 +93,7 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
     },
   },
     async (request, reply) => {
-      try { const { id } = request.params as { id: number };
-
       
-     /* const fornecedor = await findFornecedorById(id); 
-      if (!fornecedor) {
-        return reply.status(404).send("Fornecedor não encontrado");
-      }
-        
-      const hasPermission = await checkUserPermission(request.user, fornecedor); 
-      if (!hasPermission) {
-        return reply.status(401).send("Não autorizado");
-      }
-
-      await deleteFornecedorById(id); 
-      return reply.status(204).send("Fornecedor deletado com sucesso");
-    } catch (error) {
-
-      }
-      catch (error) {
-        return reply.status(500).send("Erro no servidor");
-      }*/
     }
   );
 }

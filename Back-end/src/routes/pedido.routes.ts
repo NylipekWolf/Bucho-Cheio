@@ -1,10 +1,10 @@
 
-import { controllerDeletePedido, controllerGetPedido, controllerPostPedido, controllerPutPedido } from "../controllers/pedido.controllers";
+import { deletePedidoController, getPedidoController, postPedidoController, putPedidoController } from "../controllers/pedido.controllers";
 import {
-  createPedidos,
-  filtroPedido,
-  pedidosResponse,
-  pedidoStatusRequest,
+  zCreatePedidos,
+  zFiltroPedido,
+  zPedidosResponse,
+  zPedidoStatusRequest,
 } from "../schemas/pedido-schema";
 import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
@@ -18,15 +18,15 @@ export async function routesPedido(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.PEDIDO],
         description: "Lista os pedidos",
-        querystring: filtroPedido,
+        querystring: zFiltroPedido,
         response: {
-          200: z.array(pedidosResponse),
+          200: z.array(zPedidosResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
-      handler: controllerGetPedido
+      handler: getPedidoController
     },
   );
 
@@ -36,15 +36,15 @@ export async function routesPedido(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.PEDIDO],
         description: "Cria um novo pedido",
-        body: createPedidos,
+        body: zCreatePedidos,
         response: {
-          201: pedidosResponse,
+          201: zPedidosResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
-      handler: controllerPostPedido
+      handler: postPedidoController
     }
   );
 
@@ -54,15 +54,15 @@ export async function routesPedido(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.PEDIDO],
         description: "Atualiza o status do pedido",
-        body: pedidoStatusRequest,
+        body: zPedidoStatusRequest,
         response: {
-          200: pedidosResponse,
+          200: zPedidosResponse,
           401: z.string(),
           404: z.string(),
           500: z.string(),
         },
       },
-      handler: controllerPutPedido
+      handler: putPedidoController
     },
   );
 
@@ -82,7 +82,7 @@ export async function routesPedido(app: FastifyTypeInstance) {
           500: z.string(),
         },
       },
-      handler: controllerDeletePedido
+      handler: deletePedidoController
     }
   );
 
@@ -92,9 +92,9 @@ export async function routesPedido(app: FastifyTypeInstance) {
       schema: {
         tags: [tags.PEDIDO],
         description: "Lista historico dos pedidos",
-        querystring: filtroPedido,
+        querystring: zFiltroPedido,
         response: {
-          200: z.array(pedidosResponse),
+          200: z.array(zPedidosResponse),
           401: z.string(),
           404: z.string(),
           500: z.string(),

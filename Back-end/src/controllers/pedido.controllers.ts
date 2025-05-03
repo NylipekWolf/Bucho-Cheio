@@ -1,14 +1,13 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { createPedidoBody, createPedidos, filtroPedido, filtroPedidoQuery, pedidoStatusRequest, putPedidoBody } from "../schemas/pedido-schema";
-import { serviceDeletePedido, serviceGetPedido, servicePostPedido, servicePutPedido } from "../services/pedido.service";
+import { createPedido, filtroPedido, pedidoStatusRequest } from "../schemas/pedido-schema";
+import { deletePedidoService, getPedidoService, postPedidoService, putPedidoService } from "../services/pedido.service";
 import z from "zod";
 
-export async function controllerGetPedido(
-  request: FastifyRequest<{ Querystring: filtroPedidoQuery }>,
+export async function getPedidoController(
+  request: FastifyRequest<{ Querystring: filtroPedido }>,
   reply: FastifyReply
 ) {
-  const { status, produto, data } = filtroPedido.parse(request.query);
-  const listaPedidos = await serviceGetPedido(status, produto, data);
+  const listaPedidos = await getPedidoService(request.query);
 
   try {
     // response 404 e 200
@@ -23,12 +22,11 @@ export async function controllerGetPedido(
   }
 }
 
-export async function controllerPostPedido(
-  request: FastifyRequest<{ Body: createPedidoBody }>,
+export async function postPedidoController(
+  request: FastifyRequest<{ Body: createPedido }>,
   reply: FastifyReply
 ) {
-  const { idProduto, idComanda } = createPedidos.parse(request.body);
-  const pedidoCriado = await servicePostPedido(idProduto, idComanda);
+  const pedidoCriado = await postPedidoService(request.body);
 
   try {
     if(pedidoCriado === null) {
@@ -41,12 +39,11 @@ export async function controllerPostPedido(
   }
 }
 
-export async function controllerPutPedido(
-  request: FastifyRequest<{ Body: putPedidoBody }>,
+export async function putPedidoController(
+  request: FastifyRequest<{ Body: pedidoStatusRequest }>,
   reply: FastifyReply
 ) {
-  const { id, status } = pedidoStatusRequest.parse(request.body);
-  const pedidoModificado = await servicePutPedido(id, status);
+  const pedidoModificado = await putPedidoService(request.body);
 
   try {
     if(pedidoModificado === null) {
@@ -59,12 +56,11 @@ export async function controllerPutPedido(
   }
 }
 
-export async function controllerDeletePedido(
+export async function deletePedidoController(
   request: FastifyRequest<{ Body: {id: number} }>,
   reply: FastifyReply
 ) {
-  const { id } = z.object({id: z.number().positive()}).parse(request.body);
-  const pedidoDeletado = await serviceDeletePedido(id);
+  const pedidoDeletado = await deletePedidoService(request.body.id);
 
   try {
     if(pedidoDeletado) {
