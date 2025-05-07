@@ -1,0 +1,39 @@
+@import "./../../../../assets/scss/colors";
+@import "./../../../../assets/scss/fonts";
+
+.app-page-not-found__container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+
+    &__title {
+      font-family: "lato-black";
+      font-size: 3rem;
+    }
+
+    &__subtitle {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__image > img {
+    width: 90%;
+    height: 90%;
+  }
+}

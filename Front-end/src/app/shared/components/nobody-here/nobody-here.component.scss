@@ -1,0 +1,32 @@
+@import "./../../../../assets/scss/colors";
+@import "./../../../../assets/scss/borders";
+
+.app-nobody-here__container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  &__image > img {
+    height: 9rem;
+    width: 9rem;
+  }
+
+  &__message {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &__text {
+      font-family: "lato-black";
+      font-size: 1rem;
+    }
+
+    &__description {
+      font-size: 0.9rem;
+      max-width: 7.5rem;
+      color: $grey-dark;
+    }
+  }
+}

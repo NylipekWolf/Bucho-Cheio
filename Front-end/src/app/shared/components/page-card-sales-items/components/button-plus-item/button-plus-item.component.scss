@@ -1,0 +1,33 @@
+@import "./../../../../../../assets/scss/colors";
+
+.app-button-plus-item__container {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+
+  &__number {
+    font-family: "lato-black";
+    font-size: 1rem;
+    color: $black-site;
+  }
+
+  &__button > em {
+    font-size: 2rem;
+    color: $grey-dark;
+    cursor: pointer;
+  }
+
+  &__button > em:hover {
+    color: $black-site;
+  }
+
+  &__button--disabled > em {
+    color: $grey-light;
+    pointer-events: none;
+  }
+
+  &__button--disabled > em:hover {
+    color: $grey-light;
+    pointer-events: none;
+  }
+}

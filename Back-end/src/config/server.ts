@@ -9,18 +9,20 @@ import {
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { routesComanda } from "../routes/comanda.routes";
-import { routesFornecedor } from "../routes/fornecedor.routes";
 import { routesIngrediente } from "../routes/ingrediente.routes";
 import { zodMesa, routesMesa } from "../routes/mesa.routes";
 import { routesPedido } from "../routes/pedido.routes";
 import { routesUsuario } from "../routes/usuario.routes";
-import { createMesa } from "../schemas/mesa-schema";
+import { routesFornecedor } from "../routes/fornecedor.routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-app.register(fastifyCors, { origin: "*", methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']});
+app.register(fastifyCors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+});
 app.register(fastifySwagger, {
   openapi: {
     info: {
@@ -35,12 +37,9 @@ app.register(fastifySwaggerUi, {
   routePrefix: "/docs",
 });
 
-app.addSchema({ $id: "MesaResponse", ...zodMesa });
-app.addSchema({ $id: "CreateMesa", ...createMesa });
-
 app.register(routesMesa);
 app.register(routesIngrediente);
-// app.register(routesFornecedor);
+app.register(routesFornecedor);
 app.register(routesPedido);
 app.register(routesComanda);
 app.register(routesUsuario);

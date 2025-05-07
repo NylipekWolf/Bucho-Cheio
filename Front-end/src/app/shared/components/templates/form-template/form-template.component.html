@@ -1,0 +1,18 @@
+<div class="form-template__container">
+  @if (label.includes("*")) {
+  <label [for]="label"
+    >{{ label }}
+    <span class="form-template__container__required">| required</span></label
+  >
+  } @else {
+  <label [for]="label">{{ label }}</label>
+  }
+
+  <ng-content select="[input-content]"></ng-content>
+  <small [id]="label">
+    <div class="help">
+      <ng-content select="[input-help]"></ng-content>
+    </div>
+    <ng-content class="info" select="[input-info]"></ng-content>
+  </small>
+</div>

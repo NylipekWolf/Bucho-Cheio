@@ -1,0 +1,63 @@
+<app-button-overlay-template
+  severity="secondary"
+  [buttonLabel]="buttonLabel"
+  [subtitle]="subtitle"
+  [primeIcon]="icone"
+  [labelCancel]="labelCancel"
+  [disabledProceed]="form.invalid"
+  (onCancel)="form.reset()"
+  (onProceed)="save()"
+>
+  <div body>
+    <form class="compras-form" [formGroup]="form">
+      <app-form-template label="*Nome do produto">
+        <div input-content>
+          <input type="text" formControlName="nome" pInputText id="nome" />
+        </div>
+      </app-form-template>
+      <app-form-template label="*Quantidade">
+        <div input-content>
+          <input
+            type="number"
+            formControlName="quantidade"
+            pInputText
+            id="quantidade"
+          />
+        </div>
+      </app-form-template>
+      <app-form-template label="*Fornecedor">
+        <div input-content>
+          <p-dropdown
+            id="fornecedor"
+            optionLabel="value"
+            [filter]="true"
+            formControlName="fornecedor"
+            filterBy="value"
+            placeholder="Selecione um fornecedor"
+            [options]="options"
+          />
+        </div>
+      </app-form-template>
+      <app-form-template label="*Preço">
+        <div input-content>
+          <input type="number" formControlName="preco" pInputText id="preco" />
+        </div>
+      </app-form-template>
+      <app-form-template label="*Validade">
+        <div input-content>
+          <p-calendar formControlName="validade" id="validade"></p-calendar>
+        </div>
+      </app-form-template>
+      <app-form-template label="*Categoria">
+        <div input-content>
+          <input
+            type="text"
+            formControlName="categoria"
+            pInputText
+            id="categoria"
+          />
+        </div>
+      </app-form-template>
+    </form>
+  </div>
+</app-button-overlay-template>

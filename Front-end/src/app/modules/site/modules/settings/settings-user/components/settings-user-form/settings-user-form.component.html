@@ -1,0 +1,139 @@
+<app-page-full-template [showPage]="openForm">
+  <app-page-template-main
+    title="Store Providence - RI"
+    [breadcrumb]="breadcrumb"
+    [breadcrumbHome]="breadcrumbHome"
+  >
+    <div body>
+      <form [formGroup]="form" autocomplete="off">
+        <app-page-template-card-save
+          [title]="label"
+          [subtitle]="subtitle"
+          primeIcon="pi pi-file"
+          (cancel)="close()"
+          (save)="save()"
+        >
+          <div class="app-settings-user-form__container">
+            <app-page-template-card
+              subtitle="Principal information"
+              [noTitle]="true"
+              ><div body>
+                <div class="app-settings-user-form__container">
+                  <div class="app-settings-user-form__container__form">
+                    <app-form-template label="*Full name" style="width: 25%"
+                      ><div input-content>
+                        <input
+                          type="text"
+                          pInputText
+                          id="fullName"
+                          formControlName="fullName"
+                        />
+                      </div>
+                      <div input-help>
+                        @if (formUtils.isRequired('fullName')) {
+                        <small>Full name is required</small>
+                        }
+                      </div></app-form-template
+                    >
+
+                    <app-form-template
+                      label="*Personal phone"
+                      style="width: 25%"
+                      ><div input-content>
+                        <input
+                          type="phone"
+                          pInputText
+                          id="phone"
+                          formControlName="phone"
+                        />
+                      </div>
+                      <div input-help>
+                        @if (formUtils.isRequired('phone')) {
+                        <small>Personal phone is required</small>
+                        }
+                      </div></app-form-template
+                    >
+
+                    <app-form-template label="*Email" style="width: 25%"
+                      ><div input-content>
+                        <input
+                          type="text"
+                          pInputText
+                          id="email"
+                          formControlName="email"
+                        />
+                      </div>
+                      <div input-help>
+                        @if (formUtils.isRequired('email')) {
+                        <small>Email is required</small>
+                        }
+                      </div></app-form-template
+                    >
+                  </div>
+                  <div class="app-settings-user-form__container__form">
+                    <app-form-template
+                      label="*Login name (unique)"
+                      style="width: 25%"
+                      ><div input-content>
+                        <input
+                          type="userName"
+                          pInputText
+                          id="userName"
+                          formControlName="userName"
+                        />
+                      </div>
+                      <div input-help>
+                        @if (formUtils.isRequired('userName')) {
+                        <small>Login name is required</small>
+                        }
+                      </div></app-form-template
+                    >
+
+                    <app-form-template label="Password" style="width: 25%"
+                      ><div input-content>
+                        <p-password
+                          formControlName="password"
+                          [toggleMask]="true"
+                        >
+                          <ng-template pTemplate="header">
+                            <h6>Pick a password</h6>
+                          </ng-template>
+                          <ng-template pTemplate="footer">
+                            <div
+                              class="app-settings-user-form__container__form__suggestions"
+                            >
+                              <p-divider />
+                              <p class="mt-2">Suggestions</p>
+                              <ul
+                                class="pl-2 ml-2 mt-0"
+                                style="line-height: 1.5"
+                              >
+                                <li>At least one lowercase</li>
+                                <li>At least one uppercase</li>
+                                <li>At least one numeric</li>
+                                <li>Minimum 8 characters</li>
+                              </ul>
+                            </div>
+                          </ng-template>
+                        </p-password>
+                      </div>
+                      <div input-help>
+                        @if (formUtils.isPatternInvalid('password')) {
+                        <small>Strong password is required</small>
+                        }
+                      </div></app-form-template
+                    >
+                  </div>
+                </div>
+              </div></app-page-template-card
+            >
+            <app-settings-user-profile
+              [profiles]="profilesSelected"
+              (profilesOutput)="profilesSelected = $event"
+            ></app-settings-user-profile>
+          </div>
+        </app-page-template-card-save>
+      </form>
+    </div>
+  </app-page-template-main>
+</app-page-full-template>

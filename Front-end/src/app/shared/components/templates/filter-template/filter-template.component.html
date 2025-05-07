@@ -1,0 +1,12 @@
+<app-button-overlay-template
+  primeIcon="pi pi-filter"
+  buttonLabel="Filtro"
+  [customStyle]="customStyle"
+  labelCancel="Reset filtro"
+  labelProceed="Aplicar filtro"
+  [subtitle]="subtitle"
+  (onCancel)="reset()"
+  (onProceed)="apply()"
+>
+  <ng-content></ng-content>
+</app-button-overlay-template>

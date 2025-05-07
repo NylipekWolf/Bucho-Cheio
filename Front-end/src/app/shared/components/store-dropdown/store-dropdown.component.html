@@ -1,0 +1,26 @@
+<div class="app-store-dropdown__container">
+  <p-dropdown
+    [options]="stores"
+    [(ngModel)]="storeSelected"
+    optionLabel="description"
+    placeholder="Select a Store"
+    (onChange)="onChange(storeSelected)"
+  >
+    <ng-template pTemplate="selectedItem">
+      <div class="app-store-dropdown__container__selected">
+        <div><img [src]="storeSelected.imagePath" alt="brand image" /></div>
+        <div class="app-store-dropdown__container__selected__text">
+          <div class="app-store-dropdown__container__selected__text__title">
+            Store Selected
+          </div>
+          <div
+            class="app-store-dropdown__container__selected__text__subtitle"
+            *ngFor="let item of getDescription(storeSelected.description)"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dropdown>
+</div>

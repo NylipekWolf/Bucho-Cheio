@@ -1,0 +1,22 @@
+@import "./../../../../assets/scss/colors";
+@import "./../../../../assets/scss/fonts";
+
+.app-store-dropdown__container {
+  &__selected {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+
+      &__title {
+        font-family: "lato-light";
+      }
+      &__subtitle {
+        font-family: "lato-bold";
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<div class="app-upload-file__container">
+  <input
+    id="file"
+    name="file"
+    type="file"
+    [accept]="accept"
+    (change)="onFileSelected($event)"
+  />
+  <label for="file" class="app-upload-file__container__label">
+    <div class="app-upload-file__container__label__text">
+      <em class="pi pi-upload"></em>
+      <div>{{ labelText }}</div>
+    </div>
+  </label>
+  <span id="file-chosen">Acceptable types: {{ accept }}</span>
+  <span id="file-chosen">{{ fileText }}</span>
+</div>

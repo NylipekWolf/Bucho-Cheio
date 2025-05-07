@@ -1,0 +1,50 @@
+<app-page-template-center-center>
+  <form autocomplete="off" [formGroup]="form" (ngSubmit)="login()">
+    <div class="app-login__container">
+      <div class="app-login__container__image">
+        <img
+          src="./../../../../assets/images/brand/brand.svg"
+          alt="Page Not Found Image"
+        />
+      </div>
+
+      <div class="app-login__container__form">
+        <app-form-template label="*Username">
+          <div input-content>
+            <input
+              pInputText
+              id="Username"
+              formControlName="username"
+              type="username"
+              aria-describedby="Type here the user name for login"
+            />
+          </div>
+        </app-form-template>
+        <app-form-template label="*Password">
+          <div input-content>
+            <input
+              type="password"
+              pInputText
+              id="Password"
+              formControlName="password"
+            />
+          </div>
+        </app-form-template>
+      </div>
+
+      <div class="app-login__container__btn">
+        <p-button
+          label="Sign In"
+          type="submit"
+          routerLink="/site/dashboard"
+          severity="secondary"
+          size="large"
+          [disabled]="!form.valid"
+          [loading]="loading"
+          iconPos="right"
+        ></p-button>
+        <!-- <p-button label="Change my password" [link]="true" size="small" /> -->
+      </div>
+    </div>
+  </form>
+</app-page-template-center-center>

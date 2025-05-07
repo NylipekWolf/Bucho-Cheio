@@ -1,0 +1,30 @@
+<app-page-template-main title="Compras" subtitle="">
+  <div pos-right class="btn-position">
+    <app-filter-template
+      subtitle="Filtro dos compras"
+      customStyle="min-width: 150px;"
+      (onApply)="aplicarFiltros()"
+      (onReset)="resetFilter()"
+    >
+      <compras-filter [form]="formSearch"> </compras-filter>
+    </app-filter-template>
+    <compras-form></compras-form>
+  </div>
+  <div body>
+    <app-page-template-card
+      title="compras"
+      subtitle="Listar todas as compras"
+      primeIcon="pi pi-list"
+    >
+      <div body>
+        <app-table-template
+          dataKey="id"
+          [items]="tableItems"
+          [cols]="customerCols"
+          [loading]="loading"
+          (loadMoreClicked)="loadMore()"
+        ></app-table-template>
+      </div>
+    </app-page-template-card>
+  </div>
+</app-page-template-main>

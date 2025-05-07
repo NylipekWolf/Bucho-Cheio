@@ -1,0 +1,32 @@
+@import "../colors.scss";
+.p-panelmenu
+  .p-panelmenu-header
+  [class~="p-menuitem-link-active"]
+  > .p-menuitem-icon {
+  color: $brand !important;
+}
+
+.p-panelmenu
+  .p-panelmenu-header
+  [class~="p-menuitem-link-active"]
+  > .p-menuitem-text {
+  font-family: "lato-bold" !important;
+  color: $black-site !important;
+}
+
+.p-panelmenu
+  .p-panelmenu-content
+  [class~="p-menuitem-link-active"]
+  > .p-menuitem-icon {
+  color: $brand !important;
+}
+.p-highlight > div > a > span {
+  color: $brand;
+}
+.p-panelmenu
+  .p-panelmenu-content
+  [class~="p-menuitem-link-active"]
+  > .p-menuitem-text {
+  font-family: "lato-bold" !important;
+  color: $black-site !important;
+}

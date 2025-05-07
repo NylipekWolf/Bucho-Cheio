@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "nome": "Produto 1",
+    "quantidade": 10,
+    "vencimento": "2025-04-19T02:37:19.779Z",
+    "preco": 100.5,
+    "categoria": "ingrediente",
+    "fornecedor": "patrick"
+  }
+]

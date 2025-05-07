@@ -1,0 +1,49 @@
+/* Order */
+@layer primeng, reset;
+
+@import "./assets/css/reset.css";
+@import "./assets/scss/fonts";
+@import "./assets/scss/colors";
+@import "./assets/scss/shadows";
+@import "./assets/scss/spacing";
+@import "./assets/scss/borders";
+@import "./assets/scss/transitions";
+@import "./assets/scss/mixins";
+@import "primeicons/primeicons.css";
+@import "primeng/resources/primeng.min.css";
+@import "primeflex/primeflex.min.css";
+@import "./assets/scss/primeng-theme/theme";
+
+// @import "./assets/scss/splash-screen";
+@import "./assets/scss/scrollbar";
+
+* {
+  font-family: "lato-regular";
+  // font-size default - determina o tamanho origem onde todo sistema ira se basear
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $grey-light;
+  color: $black-site;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.btn-position {
+  display: flex;
+  gap: 0.5rem;
+}

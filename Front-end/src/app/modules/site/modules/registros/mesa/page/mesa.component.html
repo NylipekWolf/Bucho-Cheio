@@ -1,0 +1,39 @@
+<app-page-template-main title="Mesa" subtitle="">
+  <div pos-right class="btn-position">
+    <app-filter-template
+      subtitle="Filtro de mesa"
+      customStyle="min-width: 150px;"
+      (onApply)="aplicarFiltros()"
+      (onReset)="resetFilter()"
+    >
+      <mesa-filter [form]="formSearch"> </mesa-filter>
+    </app-filter-template>
+    <mesa-form (closeOutput)="receiveItem($event)"></mesa-form>
+  </div>
+  <div body>
+    <app-page-template-card
+      title="Mesa"
+      subtitle="Listar todas as mesas do estabelecimento"
+      primeIcon="pi pi-list"
+    >
+      <div pos-right>
+        @if (mesaSelecionada) {
+        <mesa-form
+          [mesaSelecionada]="mesaSelecionada"
+          (closeOutput)="receiveItem($event)"
+        ></mesa-form>
+        }
+      </div>
+      <div body>
+        <app-table-template
+          dataKey="id"
+          [items]="tableItems"
+          [cols]="customerCols"
+          [loading]="loading"
+          (loadMoreClicked)="loadMore()"
+          (lineClicked)="selecionarMesa($event)"
+        ></app-table-template>
+      </div>
+    </app-page-template-card>
+  </div>
+</app-page-template-main>

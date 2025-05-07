@@ -1,0 +1,17 @@
+<div class="app-page-card-total-graph__container">
+  <div class="app-page-card-total-graph__container__content">
+    <div class="app-page-card-total-graph__container__content__title">
+      {{ text }}
+    </div>
+    <div class="app-page-card-total-graph__container__content__value">
+      {{ value | currency }}
+    </div>
+  </div>
+
+  <div class="app-page-card-total-graph__container__graph">
+    <img
+      src="./../../../../assets/images/graph/graph-{{ graphColor }}.svg"
+      alt="{{ graphColor }} graphic"
+    />
+  </div>
+</div>

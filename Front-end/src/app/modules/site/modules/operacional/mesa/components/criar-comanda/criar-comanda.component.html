@@ -1,0 +1,32 @@
+<app-page-full-template [showPage]="showPage">
+  <app-page-template-main [title]="title" [subtitle]="subtitle">
+    <div body>
+      <app-page-template-card-save
+        title="Produtos oferecidos"
+        subtitle=""
+        badge="1"
+        primeIcon="pi pi-file"
+        (cancel)="closeOutput.emit()"
+        (save)="save()"
+      >
+        <div>
+          <app-page-template-card subtitle="" [noTitle]="true">
+            <div class="cardapio__container" body>
+              <div class="cardapio__container__menu">
+                <p-button
+                  (onClick)="scrollTo(item)"
+                  [style]="{ width: '100%' }"
+                  *ngFor="let item of menu"
+                  [label]="item"
+                ></p-button>
+              </div>
+              <div class="cardapio__container__items">
+                <cardapio-template></cardapio-template>
+              </div>
+            </div>
+          </app-page-template-card>
+        </div>
+      </app-page-template-card-save>
+    </div>
+  </app-page-template-main>
+</app-page-full-template>

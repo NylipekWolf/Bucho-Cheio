@@ -1,0 +1,43 @@
+@import "./../../../../../assets/scss/colors";
+@import "./../../../../../assets/scss/borders";
+
+.menu {
+  background: white;
+  border-radius: 1rem;
+  &__start {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 1rem;
+    width: 100%;
+    img {
+      width: 100%;
+      height: 20px;
+      object-fit: cover;
+    }
+    span {
+      color: $brand;
+      font-weight: 700;
+    }
+  }
+  &__submenuheader {
+    span {
+      color: $brand;
+    }
+  }
+  &__end {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid $brand;
+    &__info {
+      display: inline-flex;
+      flex-direction: column;
+      &__nome {
+        font-weight: 700;
+      }
+      &__cargo {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}

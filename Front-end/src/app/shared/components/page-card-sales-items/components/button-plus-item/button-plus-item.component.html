@@ -1,0 +1,16 @@
+<div class="app-button-plus-item__container">
+  <div
+    class="app-button-plus-item__container__button {{
+      currentValue === 1
+        ? 'app-button-plus-item__container__button--disabled'
+        : ''
+    }}"
+    (click)="minus()"
+  >
+    <em class="pi pi-angle-left"></em>
+  </div>
+  <div class="app-button-plus-item__container__number">{{ currentValue }}</div>
+  <div class="app-button-plus-item__container__button" (click)="plus()">
+    <em class="pi pi-angle-right"></em>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="list-mesa__container">
+  <button
+    pButton
+    class="list-mesa__container__mesa"
+    (click)="buscar(item)"
+    style="background-color: {{ item.status }}"
+    *ngFor="let item of dados"
+  >
+    <span class="list-mesa__container__mesa__id">mesa: {{ item.id }} </span>
+    <span class="list-mesa__container__mesa__quantidade">
+      {{ item.quantidade }}
+    </span>
+  </button>
+  @if (mesaSelecionada) {
+
+  <p-dialog
+    header="Comandas"
+    [modal]="true"
+    [(visible)]="modalVisible"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  >
+    <app-page-template-card
+      [title]="
+        mesaSelecionada.status === 'Disponivel'
+          ? 'Crie uma nova comanda'
+          : 'Adicione ou altere uma comanda'
+      "
+      [subtitle]="subtitle"
+      primeIcon="pi pi-list"
+    >
+      <div pos-right>
+        <p-button
+          severity="secondary"
+          [outlined]="true"
+          icon="pi pi-plus"
+          label="Adicionar uma nova comanda"
+          (onClick)="criarComanda()"
+        ></p-button>
+      </div>
+      <div
+        style="height: 60vh; display: flex; gap: 1rem; flex-direction: column"
+        body
+      >
+        <div
+          class="list-mesa__container__comanda"
+          *ngFor="let item of comandas"
+        >
+          <span>Comanda: {{ item.id }}</span>
+          <span>Nome: {{ item.nome }}</span>
+          <span>Status: {{ item.status }}</span>
+          <span>Preço: {{ item.valor | currency }}</span>
+          <p-button
+            severity="secondary"
+            [outlined]="true"
+            icon="pi pi-pencil"
+            label="Editar"
+          ></p-button>
+          <p-button
+            severity="secondary"
+            [outlined]="true"
+            icon="pi pi-check"
+            label="Fechar"
+          ></p-button>
+        </div>
+      </div>
+    </app-page-template-card>
+  </p-dialog>
+  }
+  <criar-comanda
+    (closeOutput)="showPage = false"
+    [showPage]="showPage"
+  ></criar-comanda>
+</div>

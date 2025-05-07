@@ -1,0 +1,71 @@
+.app-kit-product__container{
+    display: flex;
+    gap: 1rem;
+    width: 614px;
+}
+
+.app-page-card-sales-items__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  
+    &__items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow-y: auto;
+    max-height: 170px;
+    }
+  
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap:1rem;
+  
+      &__left {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+  
+        &__name {
+          font-family: "lato-bold";
+          font-size: 0.875rem;
+        }
+  
+        &__description,
+        strong {
+          font-family: "lato-bold";
+          font-size: 0.75rem;
+        }
+  
+        &__description > strong {
+          font-family: "lato-black";
+          font-size: 0.8125rem;
+        }
+      }
+  
+      &__right {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+  
+        ::ng-deep {
+          .p-button,
+          .p-button.p-button-sm {
+            padding: 0.1rem 0.3rem;
+          }
+        }
+  
+        &__discount {
+          ::ng-deep {
+            .p-inputtext {
+              width: 150px;
+              padding: 0.2rem 0.75rem;
+            }
+          }
+        }
+      }
+    }
+}

@@ -1,0 +1,65 @@
+@if (items.length > 0) {
+<div class="app-table-template__container">
+  <div>
+    <p-table
+      [value]="items"
+      [dataKey]="dataKey"
+      [rowHover]="true"
+      [(selection)]="itemSelected"
+      selectionMode="single"
+      (onRowSelect)="onRowSelect($event)"
+      (onRowUnselect)="onRowUnselect()"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          @for (col of cols; track $index) { @if (col.type !== 'hide') {
+          <th>{{ col.header }}</th>
+          } }
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr [pSelectableRow]="item">
+          @for (map of item | keyvalue: originalOrder; track $index) { @if
+          (getFieldType(map.key) !== 'hide') {
+          <td>
+            @switch (getFieldType(map.key)) { @case ('activation') { @if
+            (map.value) {
+            <em
+              class="pi pi-circle-fill color-success"
+              style="font-size: 0.6rem"
+            >
+            </em>
+            } @else {
+            <em
+              class="pi pi-circle-fill color-danger"
+              style="font-size: 0.6rem"
+            ></em>
+            } }@case ('currency') {
+            {{ map.value | currency }}
+            } @default {
+            {{ getFormattedField(map.key, map.value) }}
+            } }
+          </td>
+          } }
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="app-table-template__container__loadmore">
+    <p-button
+      label="Load more items"
+      [link]="true"
+      size="small"
+      icon="pi pi-arrow-down"
+      iconPos="right"
+      [loading]="loading"
+      (onClick)="onClickLoadMore()"
+    />
+  </div>
+</div>
+} @else {
+<app-nobody-here
+  imageStyle="width: 20rem; height: 20rem"
+  [loading]="loading"
+></app-nobody-here>
+}

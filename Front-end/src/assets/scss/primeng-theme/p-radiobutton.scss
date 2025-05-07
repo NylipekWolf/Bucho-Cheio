@@ -1,0 +1,62 @@
+.p-radiobutton {
+  width: 22px;
+  height: 22px;
+}
+.p-radiobutton .p-radiobutton-box {
+  border: 2px solid #d1d5db;
+  background: $neutral;
+  width: 22px;
+  height: 22px;
+  color: $black-site;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  outline-color: transparent;
+}
+.p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+  border-color: $black-site;
+}
+.p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem $grey-lighter;
+  border-color: $black-site;
+}
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  width: 12px;
+  height: 12px;
+  transition-duration: 0.2s;
+  background-color: $neutral;
+}
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: $black-site;
+  background: $black-site;
+}
+.p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  border-color: $grey-dark;
+  background: $grey-dark;
+  color: $neutral;
+}
+
+p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
+  border-color: $red;
+}
+
+.p-input-filled .p-radiobutton .p-radiobutton-box {
+  background-color: #f3f4f6;
+}
+.p-input-filled .p-radiobutton .p-radiobutton-box:not(.p-disabled):hover {
+  background-color: #f3f4f6;
+}
+.p-input-filled .p-radiobutton .p-radiobutton-box.p-highlight {
+  background: $black-site;
+}
+.p-input-filled
+  .p-radiobutton
+  .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  background: $grey-dark;
+}
+
+.p-radiobutton-label {
+  margin-left: 0.5rem;
+}

@@ -1,0 +1,116 @@
+<app-button-overlay-template
+  buttonLabel="Kit product"
+  size="small"
+  subtitle="Build your product kit"
+  labelProceed="Close kit"
+  [disabledProceed]="disabled"
+  (onProceed)="save()"
+  (onHide)="onHide()"
+>
+  <form [formGroup]="form" (ngSubmit)="addItem()">
+    <div class="app-kit-product__container">
+      <app-form-template label="*Kit name" class="w-full">
+        <div input-content>
+          <input pInputText formControlName="kitName" class="w-full" />
+        </div>
+      </app-form-template>
+      <app-form-template label="*Value" class="w-full">
+        <div input-content>
+          <p-inputNumber
+            formControlName="salesPrice"
+            mode="currency"
+            currency="USD"
+            locale="en-US"
+            class="w-full"
+            min="1"
+            placeholder="$0.00"
+          />
+        </div>
+        <div input-info>
+          @if (total>0) {
+          <small>{{ "Suggested price: " + (total | currency) }}</small>
+          @if (form.get('salesPrice')?.value>0) {
+          <small>{{
+            (form.get("salesPrice")?.value - total) / total < 0
+              ? "Discount : " +
+                ((form.get("salesPrice")?.value - total) / total | percent)
+              : "Increase : " +
+                ((form.get("salesPrice")?.value - total) / total | percent)
+          }}</small>
+          } }
+        </div>
+      </app-form-template>
+    </div>
+    <div class="flex justify-content-end">
+      <p-button
+        label="Add"
+        [outlined]="true"
+        severity="secondary"
+        size="small"
+        icon="pi pi-plus-circle"
+        title="Add Contact"
+        (onClick)="addItem()"
+        [disabled]="!form.get('product')?.value"
+      />
+    </div>
+    <div class="app-page-card-sales-items__container">
+      <app-form-template label="Product" style="width: 100%"
+        ><div input-content>
+          <form [formGroup]="form" (ngSubmit)="addItem()">
+            <p-autoComplete
+              formControlName="product"
+              [forceSelection]="true"
+              [suggestions]="itemsSuggestions"
+              (completeMethod)="filterItems($event)"
+              field="name"
+            />
+          </form>
+        </div>
+      </app-form-template>
+      <div class="app-page-card-sales-items__container__items">
+        @for (item of salesItems; track $index) {
+        <div class="app-page-card-sales-items__container__item">
+          <div class="app-page-card-sales-items__container__item__left">
+            <div class="app-page-card-sales-items__container__item__left__name">
+              {{ item.name }}
+            </div>
+            <div
+              class="app-page-card-sales-items__container__item__left__description"
+            >
+              Sale price:
+              <strong>{{ item.salePrice | currency }}</strong> | Cost price:
+              <strong>{{ item.costPrice | currency }}</strong>
+            </div>
+          </div>
+          <div class="app-page-card-sales-items__container__item__right">
+            <p-inputNumber
+              [showButtons]="true"
+              [(ngModel)]="item.quantity"
+              [ngModelOptions]="{ standalone: true }"
+              buttonLayout="horizontal"
+              [inputStyle]="{ width: '10rem' }"
+              decrementButtonClass="button"
+              min="1"
+              decrementButtonIcon="pi pi-angle-left"
+              incrementButtonIcon="pi pi-angle-right"
+              (onKeyDown)="calculate()"
+              (onInput)="calculate()"
+            >
+            </p-inputNumber>
+            <p-button
+              label="Remove"
+              [link]="true"
+              severity="secondary"
+              size="small"
+              iconPos="right"
+              icon="pi pi-trash"
+              title="Remove"
+              (onClick)="delItem($index)"
+            />
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </form>
+</app-button-overlay-template>

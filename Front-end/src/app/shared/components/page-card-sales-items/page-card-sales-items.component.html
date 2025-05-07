@@ -1,0 +1,121 @@
+<app-page-template-card [subtitle]="subtitle" [noTitle]="true">
+  <div class="flex gap-2" pos-right>
+    @if (type==='PRODUCTS') {
+    <app-kit-product
+      (closeOutput)="salesItems.push($event); calculate()"
+      [optionProducts]="optionProducts"
+    ></app-kit-product>
+    }
+    <p-button
+      label="Add"
+      [outlined]="true"
+      severity="secondary"
+      size="small"
+      icon="pi pi-plus-circle"
+      title="Add Contact"
+      (onClick)="addItem()"
+      [disabled]="form.invalid"
+    />
+  </div>
+  <div body>
+    <div class="app-page-card-sales-items__container">
+      <app-form-template [label]="label" style="width: 100%"
+        ><div input-content>
+          <form [formGroup]="form" (ngSubmit)="addItem()">
+            <p-autoComplete
+              formControlName="item"
+              [forceSelection]="true"
+              [suggestions]="itemsSuggestions"
+              (completeMethod)="filterItems($event)"
+              field="name"
+            />
+          </form>
+        </div>
+        <div input-help>
+          @if (formUtils.isRequired('item')) {
+          <small>Item required</small>
+          }
+        </div></app-form-template
+      >
+      @for (item of salesItems; track $index) {
+      <div class="app-page-card-sales-items__container__items">
+        <div class="app-page-card-sales-items__container__item">
+          <div class="app-page-card-sales-items__container__item__left">
+            <div class="app-page-card-sales-items__container__item__left__name">
+              {{ item.name }}
+            </div>
+            <div
+              class="app-page-card-sales-items__container__item__left__description"
+            >
+              @if (type==='PRODUCTS') { Sale price:
+              <strong>{{ item.salePrice | currency }}</strong> | Cost price: }
+              <strong>{{ item.costPrice | currency }}</strong>
+            </div>
+          </div>
+          <div class="app-page-card-sales-items__container__item__right">
+            <div>
+              @if (type==='PRODUCTS') {
+              <p-inputNumber
+                [showButtons]="true"
+                [(ngModel)]="item.quantity"
+                buttonLayout="horizontal"
+                [inputStyle]="{ 'min-width': '3rem' }"
+                decrementButtonClass="button"
+                min="1"
+                decrementButtonIcon="pi pi-angle-left"
+                incrementButtonIcon="pi pi-angle-right"
+                (onInput)="calculate()"
+              >
+              </p-inputNumber>
+
+              }@else {
+              <div class="flex align-items-center gap-2">
+                <small class="w-full">Price</small>
+                <p-inputNumber
+                  mode="currency"
+                  currency="USD"
+                  locale="en-US"
+                  [(ngModel)]="item.salePrice"
+                  (ngModelChange)="calculate()"
+                ></p-inputNumber>
+              </div>
+              }
+            </div>
+            @if (type==='PRODUCTS') {
+            <div class="flex gap-2">
+              <p-checkbox
+                inputId="taxable"
+                [(ngModel)]="item.taxable"
+                [value]="item.taxable"
+                [binary]="true"
+                (onChange)="taxable()"
+              ></p-checkbox>
+              <label for="taxable">taxable</label>
+            </div>
+            }
+            <p-button
+              label="Remove"
+              [link]="true"
+              severity="secondary"
+              size="small"
+              iconPos="right"
+              icon="pi pi-trash"
+              title="Remove"
+              (onClick)="delItem($index)"
+            />
+          </div>
+        </div>
+        <p-divider> </p-divider>
+      </div>
+      }
+      <div class="app-page-card-sales-items__container__subtotal">
+        <div class="app-page-card-sales-items__container__subtotal__text">
+          Subtotal
+        </div>
+        <div class="app-page-card-sales-items__container__subtotal__value">
+          {{ total | currency }}
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page-template-card>

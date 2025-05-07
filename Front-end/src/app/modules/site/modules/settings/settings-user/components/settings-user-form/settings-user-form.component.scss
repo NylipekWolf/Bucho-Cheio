@@ -1,0 +1,33 @@
+.app-settings-user-form__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__form {
+    display: flex;
+    gap: 1rem;
+
+    ::ng-deep {
+      .p-password {
+        width: 100% !important;
+      }
+    }
+
+    h6 {
+      font-family: "lato-bold";
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    &__suggestions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    ul {
+      list-style-type: square;
+    }
+  }
+}

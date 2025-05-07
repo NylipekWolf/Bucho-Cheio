@@ -1,0 +1,36 @@
+<div class="app-nobody-here__container">
+  <div class="app-nobody-here__container__image">
+    @if(loading) {
+    <img
+      src="./../../../../assets/images/art/loading.svg"
+      alt="nothing here
+      to show"
+      [style]="imageStyle"
+    />
+    } @else {
+    <img
+      src="./../../../../assets/images/art/busca.png"
+      alt="nothing here
+      to show"
+      [style]="imageStyle"
+    />
+    }
+  </div>
+  <div class="app-nobody-here__container__message">
+    @if(loading) {
+
+    <div class="app-nobody-here__container__message__text">
+      <em class="pi pi-spin pi-cog color-primary"></em> Loading...
+    </div>
+    <div class="app-nobody-here__container__message__description">
+      Please wait
+    </div>
+
+    } @else() {
+    <div class="app-nobody-here__container__message__text">{{ text }}</div>
+    <div class="app-nobody-here__container__message__description">
+      {{ description }}
+    </div>
+    }
+  </div>
+</div>

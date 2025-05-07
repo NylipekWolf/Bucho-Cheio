@@ -1,0 +1,49 @@
+<app-page-template-card subtitle="Profiles" [noTitle]="true">
+  <div pos-right>
+    <p-button
+      label="Add"
+      [outlined]="true"
+      severity="secondary"
+      size="small"
+      icon="pi pi-plus-circle"
+      title="Add Profile"
+      (onClick)="addItem()"
+      [disabled]="form.invalid"
+    />
+  </div>
+  <div body>
+    <form [formGroup]="form" (ngSubmit)="addItem()">
+      <div class="app-settings-user-profile__container">
+        <div class="app-settings-user-profile__container__form">
+          <app-form-template label="*Profiles" style="width: 50%"
+            ><div input-content>
+              <p-dropdown
+                id="profile"
+                formControlName="profile"
+                optionLabel="value"
+                [filter]="true"
+                filterBy="value"
+                placeholder="Select a type"
+                [options]="profileOptions"
+                [loading]="profileLoading"
+              />
+            </div>
+            <div input-help>
+              @if (formUtils.isRequired('profile')) {
+              <small>Profile name is required</small>
+              }
+            </div></app-form-template
+          >
+        </div>
+        <div class="app-settings-user-profile__container__list">
+          <app-list-template
+            [list]="listTemplateItem"
+            (onDelete)="delItem($event)"
+            [hasButton]="true"
+            [hasMore]="false"
+          ></app-list-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-page-template-card>

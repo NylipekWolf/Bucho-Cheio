@@ -1,0 +1,133 @@
+.p-menu {
+  padding: 0.5rem 0;
+  background: $neutral;
+  color: $black-site;
+  border: 1px solid #e5e7eb;
+  border-radius: $default-radius;
+  width: 12.5rem;
+}
+.p-menu .p-menuitem > .p-menuitem-content {
+  color: $black-site;
+  transition: box-shadow 0.2s;
+  border-radius: 0;
+}
+.p-menu .p-menuitem > .p-menuitem-content .p-menuitem-link {
+  color: $black-site;
+  padding: 0.75rem 1.25rem;
+  user-select: none;
+}
+.p-menu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+  color: $black-site;
+}
+.p-menu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
+  color: $black-site;
+  margin-right: 0.5rem;
+}
+.p-menu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
+  color: $black-site;
+}
+.p-menu .p-menuitem.p-highlight > .p-menuitem-content {
+  color: #0e7490;
+}
+.p-menu
+  .p-menuitem.p-highlight
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-menuitem-text {
+  color: #0e7490;
+}
+.p-menu
+  .p-menuitem.p-highlight
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-menuitem-icon,
+.p-menu
+  .p-menuitem.p-highlight
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-submenu-icon {
+  color: #0e7490;
+}
+.p-menu .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+  background: rgba(6, 182, 212, 0.24);
+}
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus
+  > .p-menuitem-content {
+  color: $black-site;
+}
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-menuitem-text {
+  color: $black-site;
+}
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-menuitem-icon,
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-submenu-icon {
+  color: $black-site;
+}
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled)
+  > .p-menuitem-content:hover {
+  color: $black-site;
+}
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled)
+  > .p-menuitem-content:hover
+  .p-menuitem-link
+  .p-menuitem-text {
+  font-family: "lato-bold" !important;
+  color: $black-site;
+}
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled)
+  > .p-menuitem-content:hover
+  .p-menuitem-link
+  .p-menuitem-icon,
+.p-menu
+  .p-menuitem:not(.p-highlight):not(.p-disabled)
+  > .p-menuitem-content:hover
+  .p-menuitem-link
+  .p-submenu-icon {
+  color: $brand;
+}
+.p-menu.p-menu-overlay {
+  background: #ffffff;
+  border: 0 none;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.p-menu .p-submenu-header {
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  color: #374151;
+  background: #ffffff;
+  font-weight: 700;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.p-menu .p-menuitem-separator {
+  border-top: 1px solid #e5e7eb;
+  margin: 0.25rem 0;
+}
+.p-menu .p-menuitem-badge {
+  background: #06b6d4;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: $default-radius;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}

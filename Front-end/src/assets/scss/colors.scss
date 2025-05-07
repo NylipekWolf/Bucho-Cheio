@@ -1,0 +1,47 @@
+$neutral: #ffffff;
+$brand-light: #A3A3A3;
+$brand: #FF6600;
+$brand-dark:  #AC4500 ;
+$backgroud:#F89859  ;
+
+$green: #00aa6d;
+$green-light: #44efb1;
+
+$red: #ef6d44;
+$red-dark: #ca4e29;
+
+$grey-lighter-light: #fbfbfb;
+$grey-lighter: #f6f6f6;
+$grey-light: #e4e4e4;
+$grey-dark: #8996a8;
+$black-site: #2d2d2d;
+
+.color-primary {
+  color: $brand;
+}
+
+.color-danger {
+  color: $red;
+}
+
+.color-warning {
+  color: #684f0b;
+}
+
+.color-success {
+  color: $green;
+}
+
+.color-success-light {
+  color: $green-light;
+}
+
+.color-default-dark {
+  color: $grey-dark;
+}
+
+.codexx-required::after {
+  color: $red;
+  font-size: 1rem;
+  content: "*";
+}

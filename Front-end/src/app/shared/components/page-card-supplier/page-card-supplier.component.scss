@@ -1,0 +1,15 @@
+.app-page-card-supplier__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__form {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__list {
+    overflow-y: auto;
+    max-height: 9.375rem;
+  }
+}

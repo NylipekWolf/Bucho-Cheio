@@ -1,0 +1,30 @@
+<app-page-template-main title="Cardapio" subtitle="">
+  <div pos-right class="btn-position">
+    <app-filter-template
+      subtitle="Filtro de cardapio"
+      customStyle="min-width: 150px;"
+      (onApply)="aplicarFiltros()"
+      (onReset)="resetFilter()"
+    >
+      <cardapio-filter [form]="formSearch"> </cardapio-filter>
+    </app-filter-template>
+    <cardapio-form></cardapio-form>
+  </div>
+  <div body>
+    <app-page-template-card
+      title="cardapio"
+      subtitle="Listar o cardapio do estabelecimento"
+      primeIcon="pi pi-list"
+    >
+      <div body>
+        <app-table-template
+          dataKey="id"
+          [items]="tableItems"
+          [cols]="customerCols"
+          [loading]="loading"
+          (loadMoreClicked)="loadMore()"
+        ></app-table-template>
+      </div>
+    </app-page-template-card>
+  </div>
+</app-page-template-main>

@@ -1,0 +1,28 @@
+@import "./../../../../../assets/scss/colors";
+@import "./../../../../../assets/scss/borders";
+
+.app-page-template__container {
+  padding: 1.1525rem;
+  width: 100%;
+  border: 0.1125rem solid $grey-light;
+  border-radius: $default-radius;
+  background-color: $neutral;
+
+  &__header {
+    display: flex;
+    gap:2rem;
+
+    &__left {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+
+    &__right {
+      display: flex;
+      justify-content: end;
+      align-content: center;
+      align-items: center;
+      flex-grow: 1;
+    }
+  }
+}

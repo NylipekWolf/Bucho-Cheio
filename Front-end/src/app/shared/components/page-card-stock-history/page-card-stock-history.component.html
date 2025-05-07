@@ -1,0 +1,13 @@
+<app-page-template-card
+  title="History"
+  subtitle="Latest stock adjustments"
+  primeIcon="pi pi-history"
+>
+  <div body>
+    <app-list-template
+      (onLoadMore)="loadMore()"
+      [list]="list"
+      linkPos="center"
+    ></app-list-template>
+  </div>
+</app-page-template-card>

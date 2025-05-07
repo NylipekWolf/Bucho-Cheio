@@ -1,0 +1,17 @@
+@import "./../../../../../assets/scss/colors";
+@import "./../../../../../assets/scss/borders";
+
+.app-page-full-template__container {
+  ::ng-deep {
+    .p-sidebar-full {
+      width: calc(100% - 1.5rem);
+      height: calc(100% - 2rem);
+      left: 0.5rem;
+      top: 0.5rem;
+    }
+    .p-sidebar {
+      box-shadow: none;
+      border-radius: $default-radius;
+    }
+  }
+}

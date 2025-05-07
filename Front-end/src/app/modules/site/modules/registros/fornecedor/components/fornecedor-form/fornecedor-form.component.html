@@ -1,0 +1,132 @@
+<app-button-overlay-template
+  severity="secondary"
+  [buttonLabel]="buttonLabel"
+  [subtitle]="subtitle"
+  [primeIcon]="icone"
+  [labelCancel]="labelCancel"
+  [disabledProceed]="form.invalid"
+  (onCancel)="form.reset()"
+  (onProceed)="save()"
+>
+  <div body>
+    <form class="fornecedor-form" [formGroup]="form">
+      <app-form-template label="*Nome do fornecedor">
+        <div input-content>
+          <input type="text" formControlName="nome" pInputText id="nome" />
+        </div>
+      </app-form-template>
+      <div class="fornecedor-form__endereco">
+        <app-form-template label="*CEP">
+          <div input-content>
+            <p-inputMask
+              mask="99999-999"
+              formControlName="cep"
+              pInputText
+              id="cep"
+              [unmask]="true"
+            />
+          </div>
+        </app-form-template>
+        <app-form-template label="*Logradouro">
+          <div input-content>
+            <input
+              type="text"
+              formControlName="logradouro"
+              pInputText
+              id="logradouro"
+            />
+          </div>
+        </app-form-template>
+
+        <app-form-template label="*Numero">
+          <div input-content>
+            <input
+              type="text"
+              formControlName="numero"
+              pInputText
+              id="numero"
+            />
+          </div>
+        </app-form-template>
+
+        <app-form-template label="Complemento">
+          <div input-content>
+            <input
+              type="text"
+              formControlName="complemento"
+              pInputText
+              id="complemento"
+            />
+          </div>
+        </app-form-template>
+      </div>
+
+      <div class="fornecedor-form__contato">
+        <app-form-template label="Contato">
+          <div input-content>
+            <p-table
+              [value]="contatos"
+              [loading]="loadingContato"
+              [scrollable]="true"
+              scrollHeight="200px"
+              styleClass="p-datatable-gridlines"
+            >
+              <ng-template pTemplate="header">
+                <td class="p-3"><span class="font-bold">nome</span></td>
+                <td class="p-3"><span class="font-bold">telefone</span></td>
+                <td class="p-3"><span class="font-bold">email</span></td>
+                <td class="p-3"><span class="font-bold">principal</span></td>
+              </ng-template>
+              <ng-template pTemplate="body" let-contato>
+                <tr>
+                  <td>{{ contato.nome }}</td>
+                  <td>{{ contato.telefone }}</td>
+                  <td>{{ contato.email }}</td>
+                  <td>
+                    <!-- <p-checkbox [binary]="true" inputId="binary" /> -->
+                    <input type="checkbox" [checked]="contato.principal" />
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <tr formGroupName="contato">
+                  <td>
+                    <input
+                      formControlName="nome"
+                      class="p-1"
+                      pInputText
+                      type="text"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      formControlName="telefone"
+                      class="p-1"
+                      pInputText
+                      type="text"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      formControlName="email"
+                      class="p-1"
+                      pInputText
+                      type="email"
+                    />
+                  </td>
+                  <td>
+                    <p-button
+                      [disabled]="form.get('contato')?.invalid"
+                      icon="pi pi-plus-circle"
+                      (onClick)="adicionarContato()"
+                    ></p-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </app-form-template>
+      </div>
+    </form>
+  </div>
+</app-button-overlay-template>

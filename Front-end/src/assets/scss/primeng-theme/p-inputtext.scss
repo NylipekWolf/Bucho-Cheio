@@ -1,0 +1,33 @@
+.p-inputtext {
+  font-family: "lato-bold" !important;
+  font-feature-settings: var(--font-feature-settings, normal);
+  font-size: 1rem;
+  color: $black-site;
+  background: $neutral;
+  padding: 0.75rem 0.75rem;
+  border: 1px solid #ced4da;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  appearance: none;
+  border-radius: $default-radius;
+}
+.p-inputtext:enabled:hover {
+  border-color: $black-site;
+}
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem $grey-light;
+  border-color: $grey-dark;
+}
+.p-inputtext.ng-dirty.ng-invalid {
+  border-color: $red;
+}
+.p-inputtext.p-inputtext-sm {
+  font-size: 0.875rem;
+  padding: 0.65625rem 0.65625rem;
+}
+.p-inputtext.p-inputtext-lg {
+  font-size: 1.25rem;
+  padding: 0.9375rem 0.9375rem;
+}

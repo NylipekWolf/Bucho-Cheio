@@ -1,0 +1,62 @@
+<app-page-template-main
+  title="Store Providence - RI"
+  [breadcrumb]="breadcrumb"
+  [breadcrumbHome]="breadcrumbHome"
+>
+  <div pos-right class="btn-position">
+    <app-settings-profile-filter
+      (filterOutput)="search($event)"
+    ></app-settings-profile-filter>
+    <p-button
+      label="New profile"
+      [outlined]="true"
+      severity="secondary"
+      icon="pi pi-plus-circle"
+      (onClick)="prepareNewProfile()"
+    />
+  </div>
+  <div body>
+    <app-page-template-card
+      title="Profiles"
+      subtitle="List of already registered profiles"
+      primeIcon="pi pi-list"
+    >
+      @if (profileSelected) {
+      <div pos-right class="btn-position">
+        <app-activate-template
+          [activated]="profileSelected.activated"
+          (onProceed)="activateDeactivate()"
+        ></app-activate-template>
+        <p-button
+          label="Edit"
+          [outlined]="true"
+          severity="secondary"
+          icon="pi pi-pencil"
+          (onClick)="prepareEditProfile()"
+        />
+      </div>
+      }
+
+      <div body>
+        <app-table-template
+          [items]="profiles"
+          [cols]="profilesCols"
+          (lineClicked)="profileSelected = $event"
+          [loading]="loading"
+          (loadMoreClicked)="loadMore()"
+        ></app-table-template>
+      </div>
+    </app-page-template-card>
+  </div>
+</app-page-template-main>
+
+@if(openForm) {
+<app-settings-profile-form
+  [openForm]="openForm"
+  (closeForm)="closeForm($event)"
+  [breadcrumb]="breadcrumb"
+  [breadcrumbHome]="breadcrumbHome"
+  [profileSelected]="profileSelected"
+  [editProfile]="editProfile"
+></app-settings-profile-form>
+}

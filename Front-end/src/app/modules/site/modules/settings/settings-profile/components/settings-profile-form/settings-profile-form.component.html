@@ -1,0 +1,76 @@
+<app-page-full-template [showPage]="openForm">
+  <app-page-template-main
+    title="Store Providence - RI"
+    [breadcrumb]="breadcrumb"
+    [breadcrumbHome]="breadcrumbHome"
+  >
+    <div body>
+      <form [formGroup]="form" autocomplete="off">
+        <app-page-template-card-save
+          [title]="label"
+          [subtitle]="subtitle"
+          primeIcon="pi pi-file"
+          (cancel)="close()"
+          (save)="save()"
+        >
+          <div class="app-settings-profile-form__container">
+            <app-page-template-card
+              subtitle="Principal information"
+              [noTitle]="true"
+              ><div body>
+                <div class="app-settings-profile-form__container__form">
+                  <app-form-template label="*Profile name" style="width: 30%"
+                    ><div input-content>
+                      <input
+                        type="text"
+                        pInputText
+                        id="profileName"
+                        formControlName="profileName"
+                      />
+                    </div>
+                    <div input-help>
+                      @if (formUtils.isRequired('profileName')) {
+                      <small>Profile name is required</small>
+                      }
+                    </div></app-form-template
+                  >
+
+                  <app-form-template label="*Store" style="width: 20%"
+                    ><div input-content>
+                      <p-dropdown
+                        id="store"
+                        optionLabel="value"
+                        [filter]="true"
+                        filterBy="value"
+                        placeholder="Select a filter"
+                        formControlName="store"
+                        [options]="storeOptions"
+                        [loading]="storeLoading"
+                      />
+                    </div>
+                    <div input-help>
+                      @if (formUtils.isRequired('store')) {
+                      <small>Store is required</small>
+                      }
+                    </div></app-form-template
+                  >
+
+                  <app-form-template label="*Features" style="width: 50%"
+                    ><div input-content>
+                      <p-tree
+                        [value]="functionalities"
+                        selectionMode="checkbox"
+                        class="w-full md:w-30rem"
+                        [(selection)]="functionalitiesSelected"
+                        [loading]="functionalitiesLoading"
+                      />
+                    </div>
+                  </app-form-template>
+                </div></div
+            ></app-page-template-card>
+          </div>
+        </app-page-template-card-save>
+      </form>
+    </div>
+  </app-page-template-main>
+</app-page-full-template>

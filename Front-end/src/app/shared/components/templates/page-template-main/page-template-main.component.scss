@@ -1,0 +1,18 @@
+@import "./../../../../../assets/scss/colors";
+@import "./../../../../../assets/scss/fonts";
+
+.app-page-template-main__container {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    &__title {
+      font-family: "lato-bold";
+      font-size: 1.4375rem;
+    }
+    &__subtitle {
+      color: $grey-dark;
+      font-size: 1rem;
+    }
+  }
+}

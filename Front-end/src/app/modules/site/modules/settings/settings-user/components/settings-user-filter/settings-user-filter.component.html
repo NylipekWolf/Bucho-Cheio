@@ -1,0 +1,61 @@
+<app-filter-template
+  subtitle="Filter registered user"
+  customStyle="min-width: 600px;"
+  (onApply)="filter()"
+  (onReset)="reset()"
+>
+  <form [formGroup]="form">
+    <div class="app-settings-user-filter__container">
+      <app-form-template label="User name">
+        <div input-content>
+          <input
+            type="text"
+            pInputText
+            id="userName"
+            formControlName="userName"
+          />
+        </div>
+      </app-form-template>
+
+      <app-form-template label="Full name">
+        <div input-content>
+          <input
+            type="text"
+            pInputText
+            id="fullName"
+            formControlName="fullName"
+          />
+        </div>
+      </app-form-template>
+
+      <app-form-template label="Profile">
+        <div input-content>
+          <p-dropdown
+            id="profile"
+            optionLabel="value"
+            [filter]="true"
+            filterBy="value"
+            placeholder="Select a filter"
+            [options]="profileOptions"
+            formControlName="profile"
+            [loading]="profileLoading"
+          />
+        </div>
+      </app-form-template>
+
+      <app-form-template label="Activated">
+        <div input-content>
+          <p-dropdown
+            id="activated"
+            optionLabel="value"
+            [filter]="true"
+            filterBy="value"
+            placeholder="Select a filter"
+            [options]="activatedOptions"
+            formControlName="activated"
+          />
+        </div>
+      </app-form-template>
+    </div>
+  </form>
+</app-filter-template>

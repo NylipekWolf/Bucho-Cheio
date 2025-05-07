@@ -1,9 +1,7 @@
-import { getUserById } from "../repositories/fornecedor-repository";
 import { usuarioRequest, usuariosResponse } from "../schemas/usuarios-schema";
 import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
 import z from "zod";
-import { getUser } from "../controllers/user-controllers";
 
 export async function routesUsuario(app: FastifyTypeInstance) {
   app.get(
@@ -23,7 +21,7 @@ export async function routesUsuario(app: FastifyTypeInstance) {
         },
       },
     },
-    getUser
+    () => {}
   );
 
   app.post(

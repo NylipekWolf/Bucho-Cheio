@@ -1,0 +1,20 @@
+<app-page-template
+  extraStyle="display: flex; flex-direction: column; gap: 1.1525rem; height: calc(100vh - 32px); overflow-y: auto;"
+>
+  <div pos-left>
+    <div class="app-page-template-main__container__header">
+      <div class="app-page-template-main__container__header__title">
+        {{ title }}
+      </div>
+      @if (breadcrumb) {
+      <p-breadcrumb [model]="breadcrumb" [home]="breadcrumbHome"></p-breadcrumb
+      >} @else {
+      <div class="app-page-template-main__container__header__subtitle">
+        {{ subtitle }}
+      </div>
+      }
+    </div>
+  </div>
+  <div pos-right><ng-content select="[pos-right]"></ng-content></div>
+  <div body><ng-content select="[body]"></ng-content></div>
+</app-page-template>

@@ -1,0 +1,18 @@
+<form [formGroup]="form" class="mesa-filter__container">
+  <app-form-template label="Id mesa">
+    <div input-content>
+      <input type="text" formControlName="id" pInputText id="id" />
+    </div>
+  </app-form-template>
+
+  <app-form-template label="Quantidade de lugares">
+    <div input-content>
+      <p-inputNumber
+        formControlName="quantidade"
+        id="quantidade"
+        min="1"
+        [showButtons]="true"
+      ></p-inputNumber>
+    </div>
+  </app-form-template>
+</form>

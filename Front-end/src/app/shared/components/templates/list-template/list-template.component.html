@@ -1,0 +1,81 @@
+<div class="app-list-template__container">
+  <div [ngClass]="dasboard ? 'app-list-template__container__list' : ''">
+    @for (item of list; track $index) {
+    <p-divider />
+    <div class="app-list-template__container__item">
+      <div class="app-list-template__container__item__left">
+        <div class="app-list-template__container__item__left__text">
+          {{ item.text }}
+        </div>
+        @if (item.description) {
+        <div class="app-list-template__container__item__left__description">
+          {{ item.description }}
+        </div>
+        }
+      </div>
+      <div class="app-list-template__container__item__right">
+        @if(hasButton) { @if(item.item && item.item.principal){
+        <p-button
+          *ngIf="hasPrincipal"
+          label="principal"
+          [link]="true"
+          size="small"
+          iconPos="right"
+          icon="pi pi-check"
+          [title]="buttonLabel"
+        />
+        }@else {
+        <p-button
+          *ngIf="hasPrincipal"
+          [label]="item.item.principal"
+          [link]="true"
+          severity="secondary"
+          size="small"
+          iconPos="right"
+          icon="pi pi-plus"
+          [title]="buttonLabel"
+          (onClick)="principalItem($index)"
+        />
+        }
+        <p-button
+          [label]="buttonLabel"
+          [link]="true"
+          severity="secondary"
+          size="small"
+          iconPos="right"
+          icon="pi pi-trash"
+          [title]="buttonLabel"
+          (onClick)="deleteItem($index)"
+        />
+        } @else {
+        {{ item.value }}
+        }
+      </div>
+    </div>
+
+    } @empty {
+    <app-nobody-here></app-nobody-here>
+    }
+  </div>
+
+  @if (list.length > 0 && hasMore) {
+
+  <p-divider />
+
+  <div
+    [ngClass]="
+      linkPos
+        ? 'app-list-template__container__item__link app-list-template__container__item__link--' +
+          linkPos
+        : 'app-list-template__container__item__link'
+    "
+  ></div>
+  <p-button
+    class="flex justify-content-end"
+    label="Find more"
+    [link]="true"
+    size="small"
+    (onClick)="loadMore()"
+  />
+  }
+</div>

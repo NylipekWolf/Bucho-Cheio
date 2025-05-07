@@ -1,0 +1,22 @@
+<div class="menu">
+  <div class="menu__start">
+    <img src="./../../../../../assets/images/art/logo.png" />
+    <span>Bucho Cheio</span>
+  </div>
+  <div class="menu__submenuheader">
+    <p-panelMenu [multiple]="true" [model]="menuItem"></p-panelMenu>
+  </div>
+  <div>
+    <div class="menu__end">
+      <p-avatar
+        [label]="getInicials(userInfo.userName)"
+        class="mr-2"
+        shape="circle"
+      />
+      <span class="menu__end__info">
+        <span class="menu__end__info__nome">{{ userInfo.userName }}</span>
+        <span class="menu__end__info__cargo">{{ userInfo.userCargo }}</span>
+      </span>
+    </div>
+  </div>
+</div>

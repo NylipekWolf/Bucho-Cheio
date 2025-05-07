@@ -1,0 +1,81 @@
+.app-page-card-sales-items__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+
+      &__name {
+        font-family: "lato-bold";
+        font-size: 0.875rem;
+      }
+
+      &__description,
+      strong {
+        font-family: "lato-bold";
+        font-size: 0.75rem;
+      }
+
+      &__description > strong {
+        font-family: "lato-black";
+        font-size: 0.8125rem;
+      }
+    }
+
+    &__right {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+
+      ::ng-deep {
+        .p-button,
+        .p-button.p-button-sm {
+          padding: 0.1rem 0.3rem;
+        }
+        .p-inputtext{
+          width: 130px;
+          height: 40px;
+        }
+      }
+
+      &__discount {
+        ::ng-deep {
+          .p-inputtext {
+            width: 150px;
+            padding: 0.2rem 0.75rem;
+          }
+        }
+      }
+    }
+  }
+
+  &__subtotal {
+    display: flex;
+    justify-content: space-between;
+
+    &__text {
+      font-family: "lato-black";
+      font-size: 1rem;
+    }
+
+    &__value {
+      font-family: "lato-black";
+      font-size: 1rem;
+    }
+  }
+}

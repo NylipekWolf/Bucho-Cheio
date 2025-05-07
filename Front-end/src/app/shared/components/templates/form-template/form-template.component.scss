@@ -1,0 +1,38 @@
+@import "./../../../../../assets/scss/colors";
+@import "./../../../../../assets/scss/fonts";
+
+.form-template__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  ::ng-deep {
+    .p-inputtext,
+    .p-autocomplete {
+      width: 100%;
+    }
+  }
+
+  &__required {
+    font-size: 0.6rem;
+  }
+  .help{
+    color: $red;
+    justify-content: flex-end;
+  }
+  .info{
+    justify-content: flex-start;
+  }
+
+  ::ng-deep  {
+    label {
+      font-family: "lato-bold";
+      font-size: 1rem;
+    }
+
+    small {
+      display: flex;
+      font-size: 0.7rem;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<app-page-template-card subtitle="Suppliers" [noTitle]="true">
+  <div pos-right>
+    <p-button
+      label="Add"
+      [outlined]="true"
+      severity="secondary"
+      size="small"
+      icon="pi pi-plus-circle"
+      title="Add Supplier"
+      (onClick)="addItem()"
+      [disabled]="form.invalid"
+      [loading]="loading"
+    />
+  </div>
+  <div body>
+    <form [formGroup]="form" (ngSubmit)="addItem()">
+      <div class="app-page-card-supplier__container">
+        <div class="app-page-card-supplier__container__form">
+          <app-form-template label="*Supplier Name" style="width: 30%"
+            ><div input-content>
+              <p-autoComplete
+                formControlName="supplier"
+                [suggestions]="supplierSuggestions"
+                (completeMethod)="filterSuppliers($event)"
+                field="supplierName"
+                [readonly]="loading"
+              />
+            </div>
+            <div input-help>
+              @if (formUtils.isRequired('supplier')) {
+              <small>Supplier Name is required</small>
+              }
+            </div></app-form-template
+          >
+        </div>
+        <div class="app-page-card-supplier__container__list">
+          <app-list-template
+            [list]="listTemplateItem"
+            (onDelete)="delItem($event)"
+            [hasButton]="true"
+            [hasMore]="false"
+          ></app-list-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-page-template-card>

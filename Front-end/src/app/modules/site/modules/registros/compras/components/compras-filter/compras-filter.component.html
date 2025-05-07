@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="compras-filter__container">
+  <app-form-template label="Id mercadoria">
+    <div input-content>
+      <input type="text" formControlName="id" pInputText id="id" />
+    </div>
+  </app-form-template>
+
+  <app-form-template label="Nome">
+    <div input-content>
+      <input type="text" formControlName="nome" pInputText id="nome" />
+    </div>
+  </app-form-template>
+
+  <app-form-template label="Fornecedor">
+    <div input-content>
+      <p-dropdown
+        id="fornecedor"
+        optionLabel="value"
+        [filter]="true"
+        formControlName="fornecedor"
+        filterBy="value"
+        placeholder="Selecione um fornecedor"
+        [options]="options"
+      />
+    </div>
+  </app-form-template>
+
+  <app-form-template label="*Validade">
+    <div input-content>
+      <p-calendar formControlName="validade" id="validade"></p-calendar>
+    </div>
+  </app-form-template>
+</form>

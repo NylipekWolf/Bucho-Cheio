@@ -1,0 +1,61 @@
+@import "./../../../../../assets/scss/colors";
+@import "./../../../../../assets/scss/borders";
+
+.app-list-template__container {
+  width: 100%;
+  background-color: $neutral;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  &__list{
+    overflow-y: auto;
+    max-height: 250px;
+  }
+  &__item {
+    display: flex;
+    padding: 0.5rem;
+    gap:1rem;
+
+    &__left {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+
+      &__text {
+        font-family: "lato-bold";
+        font-size: 0.8644rem;
+      }
+
+      &__description {
+        font-size: 0.7206rem;
+        color: $grey-dark;
+        font-family: "lato-bold";
+      }
+    }
+
+    &__right {
+      display: flex;
+      justify-content: end;
+      white-space: nowrap;
+      align-content: center;
+      align-items: center;
+      flex-grow: 1;
+      font-family: "lato-black";
+      color: $brand;
+      font-size: 0.8644rem;
+    }
+
+    &__link {
+      display: flex;
+
+      &--center {
+        justify-content: center;
+      }
+
+      &--right {
+        justify-content: end;
+      }
+    }
+  }
+}

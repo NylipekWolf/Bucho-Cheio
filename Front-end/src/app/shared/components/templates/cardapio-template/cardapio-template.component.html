@@ -1,0 +1,49 @@
+<p-dataView [value]="cardapio" [layout]="layout">
+  <ng-template pTemplate="header">
+    <div class="flex justify-content-end">
+      <div *ngFor="let item of cardapio">
+        <span>
+          {{ item.categoria }}
+        </span>
+      </div>
+      <p-dataViewLayoutOptions />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="list" let-products>
+    <div *ngFor="let item of products; let first = first">
+      <span [id]="item.categoria" class="categoria">
+        {{ item.categoria }}
+      </span>
+      <p-dataView [value]="item.items">
+        <ng-template pTemplate="list" let-products>
+          <div
+            class="cardapio-list"
+            *ngFor="let item of products; let first = first"
+          >
+            <div class="cardapio-list__img">
+              <img [src]="item.image" [alt]="item.nome" />
+            </div>
+            <div class="cardapio-list__descricao">
+              <h2>{{ item.nome }}</h2>
+              <span class="">Descrição:</span>
+              <p>{{ item.descricao }}</p>
+              <span>{{ item.preco | currency }}</span>
+            </div>
+            <div class="cardapio-list__buttons">
+              <div>
+                <p-button
+                  [disabled]="item.quantidade == 0"
+                  (onClick)="remover(item)"
+                  label="-"
+                ></p-button>
+                <span>{{ item.quantidade }}</span>
+                <p-button (onClick)="adicionar(item)" label="+"></p-button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-dataView>
+    </div>
+  </ng-template>
+  <!-- <ng-template let-product pTemplate="grid" let-products> </ng-template> -->
+</p-dataView>

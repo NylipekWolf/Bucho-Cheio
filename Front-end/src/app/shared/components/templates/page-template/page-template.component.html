@@ -1,0 +1,13 @@
+<div class="app-page-template__container" [style]="extraStyle">
+  <div class="app-page-template__container__header">
+    <div class="app-page-template__container__header__left">
+      <ng-content select="[pos-left]"></ng-content>
+    </div>
+    <div class="app-page-template__container__header__right">
+      <ng-content select="[pos-right]"></ng-content>
+    </div>
+  </div>
+  <div>
+    <ng-content select="[body]"></ng-content>
+  </div>
+</div>

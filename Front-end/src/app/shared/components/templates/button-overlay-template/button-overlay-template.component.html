@@ -1,0 +1,49 @@
+@if(isBlackButton) {
+<p-button
+  [label]="buttonLabel"
+  [badge]="badge"
+  severity="secondary"
+  [disabled]="disabled"
+  [icon]="primeIcon"
+  (onClick)="op.toggle($event)"
+  [size]="size"
+/>
+} @else {
+<p-button
+  [label]="buttonLabel"
+  [outlined]="true"
+  severity="secondary"
+  [icon]="primeIcon"
+  (onClick)="op.toggle($event)"
+  [size]="size"
+/>
+}
+
+<p-overlayPanel #op [showCloseIcon]="true" (onShow)="show()" (onHide)="hide()">
+  <div class="app-filter-template__container" [style]="customStyle">
+    <app-page-template-card
+      [primeIcon]="primeIcon"
+      [title]="buttonLabel"
+      [subtitle]="subtitle"
+    >
+      @if (showActionButtons) {
+      <div pos-right class="btn-position">
+        <p-button
+          [label]="labelProceed"
+          severity="secondary"
+          [disabled]="disabledProceed"
+          (onClick)="proceed(); op.toggle($event)"
+        />
+        <p-button
+          [label]="labelCancel"
+          [outlined]="true"
+          severity="secondary"
+          (onClick)="cancel(); op.toggle($event)"
+        />
+      </div>
+      }
+
+      <div body><ng-content></ng-content></div>
+    </app-page-template-card>
+  </div>
+</p-overlayPanel>

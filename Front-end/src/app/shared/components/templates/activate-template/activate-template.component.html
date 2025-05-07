@@ -1,0 +1,27 @@
+@if(activated) {
+<app-button-overlay-template
+  primeIcon="pi pi-lock"
+  buttonLabel="Deactivate"
+  labelCancel="No, I'm not sure."
+  labelProceed="Yes, I confirm."
+  subtitle="Are you sure?"
+  (onCancel)="cancel()"
+  (onProceed)="proceed()"
+  customStyle="min-width: 28rem"
+>
+</app-button-overlay-template>
+
+} @else {
+<app-button-overlay-template
+  primeIcon="pi pi-lock-open"
+  buttonLabel="Activate"
+  labelCancel="No, I'm not sure."
+  labelProceed="Yes, I confirm."
+  subtitle="Are you sure?"
+  (onCancel)="cancel()"
+  (onProceed)="proceed()"
+  customStyle="min-width: 28rem"
+>
+</app-button-overlay-template>
+
+}

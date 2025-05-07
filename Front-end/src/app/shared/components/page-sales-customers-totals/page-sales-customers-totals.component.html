@@ -1,0 +1,24 @@
+<div class="app-page-sales-customers-totals__container">
+  <app-page-card-total-graph
+    class="w-full"
+    graphColor="green"
+    text="Recently paid"
+    [value]="recentlyPaid"
+  ></app-page-card-total-graph>
+  <app-page-card-total-graph
+    class="w-full"
+    text="Open balance"
+    [value]="openBalance"
+  ></app-page-card-total-graph>
+  <app-page-card-total-graph
+    class="w-full"
+    text="Estimates"
+    [value]="estimates"
+  ></app-page-card-total-graph>
+  <app-page-card-total-graph
+    class="w-full"
+    graphColor="red"
+    text="Overdue invoices"
+    [value]="overdueInvoices"
+  ></app-page-card-total-graph>
+</div>

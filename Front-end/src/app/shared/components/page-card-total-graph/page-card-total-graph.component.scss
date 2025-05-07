@@ -1,0 +1,35 @@
+@import "./../../../../assets/scss/colors";
+@import "./../../../../assets/scss/borders";
+
+.app-page-card-total-graph__container {
+  min-width: 15.625rem;
+  width: 100%;
+  height: 6.25rem;
+  border: 0.1125rem solid $grey-light;
+  border-radius: $default-radius $default-radius 0 $default-radius;
+  background-color: $neutral;
+
+  &__content {
+    padding: 1.5rem 2rem;
+    z-index: 1;
+
+    &__title {
+      font-size: 0.8644rem;
+      color: $grey-dark;
+      margin-bottom: 0.5rem;
+    }
+
+    &__value {
+      font-size: 1.2969rem;
+      font-family: "lato-bold";
+    }
+  }
+
+  &__graph {
+    text-align: right;
+    position: relative;
+    top: -32px;
+    right: -1px;
+    z-index: 0;
+  }
+}

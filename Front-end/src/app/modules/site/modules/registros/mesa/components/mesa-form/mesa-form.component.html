@@ -1,0 +1,25 @@
+<app-button-overlay-template
+  severity="secondary"
+  [buttonLabel]="buttonLabel"
+  [subtitle]="subtitle"
+  [primeIcon]="icone"
+  [labelCancel]="labelCancel"
+  [disabledProceed]="form.invalid"
+  (onCancel)="form.reset()"
+  (onProceed)="save()"
+>
+  <div body>
+    <form class="mesa-form" [formGroup]="form">
+      <app-form-template label="*Quantidade de lugares">
+        <div input-content>
+          <p-inputNumber
+            formControlName="quantidade"
+            id="quantidade"
+            min="1"
+            [showButtons]="true"
+          ></p-inputNumber>
+        </div>
+      </app-form-template>
+    </form>
+  </div>
+</app-button-overlay-template>

@@ -1,0 +1,26 @@
+@import "./../../../../../assets/scss/colors";
+@import "./../../../../../assets/scss/fonts";
+
+.app-page-template-card__container {
+  &__header {
+    display: flex;
+    gap: 0.5rem;
+    &__image > em {
+      font-size: 1.0625rem;
+      color: $grey-dark;
+    }
+    &__group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      &__title {
+        color: $grey-dark;
+        font-size: 1rem;
+      }
+      &__subtitle {
+        color: $brand;
+        font-size: 0.75rem;
+      }
+    }
+  }
+}

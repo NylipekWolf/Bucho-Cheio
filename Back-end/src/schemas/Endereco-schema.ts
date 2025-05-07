@@ -1,16 +1,18 @@
 import z, { number } from "zod";
-export const enderecoResponse = z
+
+export const zEnderecoResponse = z
   .object({
     id: number().int(),
     logradouro: z.string().describe("Nome da Rua"),
-    numero: z.number().positive(),
+    numero: z.string(),
     cep: z.string(),
     complemento: z.string(),
   })
   .describe("Endereco Response");
-export const enderecoRequest = z
+
+export const zEnderecoRequest = z
   .object({
-    id: number().int().optional(),
+    id: z.coerce.number().optional(),
     logradouro: z.string().max(255).min(5),
     numero: z.number().positive(),
     cep: z.string().max(8),

@@ -1,0 +1,26 @@
+<app-page-template
+  extraStyle="display: flex; flex-direction: column; gap: 1.1525rem"
+>
+  <div pos-left>
+    <div class="app-page-template-card__container__header">
+      @if (!noTitle) {
+      <div class="app-page-template-card__container__header__image">
+        <em [class]="primeIcon"></em>
+      </div>
+      }
+
+      <div class="app-page-template-card__container__header__group">
+        @if (!noTitle) {
+        <div class="app-page-template-card__container__header__group__title">
+          {{ title }}
+        </div>
+        }
+        <div class="app-page-template-card__container__header__group__subtitle">
+          {{ subtitle }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div pos-right><ng-content select="[pos-right]"></ng-content></div>
+  <div body><ng-content select="[body]"></ng-content></div>
+</app-page-template>

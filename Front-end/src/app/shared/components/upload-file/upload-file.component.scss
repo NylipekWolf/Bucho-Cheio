@@ -1,0 +1,54 @@
+@import "./../../../../assets/scss/colors";
+@import "./../../../../assets/scss/borders";
+@import "./../../../../assets/scss/fonts";
+
+.app-upload-file__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  & > input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &__label {
+    &__text {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  & > label * {
+    pointer-events: none;
+  }
+
+  & > label {
+    cursor: pointer;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+      box-shadow 0.2s;
+    border-radius: $default-radius;
+    color: $neutral;
+    background: $grey-dark;
+    border: 1px solid $grey-light;
+    max-width: 150px;
+  }
+
+  & > label:focus + label,
+  label:hover {
+    background: #475569;
+    color: $neutral;
+    border-color: #475569;
+  }
+
+  & > span {
+    font-size: 0.7rem;
+    font-family: "lato-bold";
+  }
+}
