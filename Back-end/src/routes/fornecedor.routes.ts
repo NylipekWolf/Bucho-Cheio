@@ -1,10 +1,8 @@
 import { FastifyTypeInstance } from "../types";
 import { tags } from "../utils/tags";
 import z, { number } from "zod";
-import { zContatoCreate, zContatoResponse } from "../schemas/contato-schema";
-import { zEnderecoResponse } from "../schemas/endereco-schema";
 import {
-  zFornecedorCreate,
+  zFornecedor,
   zFornecedorResponse,
   zFornecedorFiltro,
   zFornecedorEndereco,
@@ -37,7 +35,7 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
     schema: {
       tags: [tags.FORNECEDOR],
       description: "Metodo para adicionar um novo fornecedor",
-      body: zFornecedorCreate,
+      body: zFornecedor,
       response: {
         201: zFornecedorResponse,
         401: z.string(),
@@ -54,7 +52,12 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
       description: "Metodo para editar o endereço de um fornecedor",
       body: zFornecedorEndereco,
       response: {
-        201: zEnderecoResponse,
+        201: z.object({
+          logradouro: z.string().describe("Nome da Rua"),
+          numero: z.string(),
+          cep: z.string(),
+          complemento: z.string(),
+        }),
         401: z.string(),
         404: z.string(),
         500: z.string(),
@@ -69,7 +72,12 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
       description: "Metodo para editar os contatos de um fornecedor",
       body: zFornecedorContatos,
       response: {
-        201: z.array(zContatoResponse),
+        201: z.object({
+          nome: z.string().max(100).min(1),
+          telefone: z.string(),
+          email: z.string().email().max(255),
+          principal: z.boolean(),
+        }),
         401: z.string(),
         404: z.string(),
         500: z.string(),

@@ -1,24 +1,54 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import {
   FornecedorFiltro,
-  FornecedorCreate,
   FornecedorEndereco,
   FornecedorContatos,
+  FornecedorCreate,
+  FornecedorResponse,
 } from "../schemas/fornecedor-schema";
-import {
-  getFornecedor,
-  postFornecedor,
-  putFornecedorEndereco,
-  putFornecedorContatos,
-} from "../services/fornecedor.service";
+import { fornecedorMemory } from "../memory/fornecedor-memory";
+import { log } from "console";
 
 export async function getFornecedorController(
   request: FastifyRequest<{ Querystring: FornecedorFiltro }>,
   reply: FastifyReply
 ) {
-  const listaFornecedor = await getFornecedor(request.query);
+  const nome = request.query.nome;
+  const id = request.query.id;
+  const email = request.query.email;
+  const telefone = request.query.telefone;
+  let resultado!: FornecedorResponse[];
   try {
-    return reply.status(200).send(listaFornecedor);
+    if (!nome && !id && !email && !telefone) {
+      resultado = fornecedorMemory.map((item) => {
+        return {
+          id: item.id,
+          nome: item.nome,
+          telefone: item.contato.telefone,
+          email: item.contato.email,
+          endereco: `${item.endereco.logradouro} n${item.endereco.numero}`,
+        };
+      });
+      return reply.status(200).send(resultado);
+    }
+    resultado = fornecedorMemory
+      .filter(
+        (item) =>
+          item.id == id ||
+          item.contato.telefone.includes(telefone as string) ||
+          item.contato.email.includes(email as string) ||
+          item.nome.includes(nome as string)
+      )
+      .map((item) => {
+        return {
+          id: item.id,
+          nome: item.nome,
+          telefone: item.contato.telefone,
+          email: item.contato.email,
+          endereco: `${item.endereco.logradouro} n${item.endereco.numero}`,
+        };
+      });
+    return reply.status(200).send(resultado);
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
@@ -28,9 +58,11 @@ export async function postFornecedorController(
   request: FastifyRequest<{ Body: FornecedorCreate }>,
   reply: FastifyReply
 ) {
-  const fornecedorCriado = await postFornecedor(request.body);
+  const fornecedorCriado = request.body;
   try {
-    return reply.status(201).send(fornecedorCriado);
+    const ultimoId = fornecedorMemory.length;
+    fornecedorMemory.push({ ...fornecedorCriado, id: ultimoId });
+    return reply.status(201).send(fornecedorMemory[-1]);
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
@@ -40,10 +72,23 @@ export async function putFornecedorEnderecoController(
   request: FastifyRequest<{ Body: FornecedorEndereco }>,
   reply: FastifyReply
 ) {
-  const fornecedorModificado = await putFornecedorEndereco(request.body);
+  const fornecedorModificado = request.body;
 
   try {
-    return reply.status(201).send(fornecedorModificado);
+    const itemAlterado: FornecedorEndereco = fornecedorMemory.filter(
+      (item) => item.id == fornecedorModificado.id
+    )[0];
+    if (itemAlterado) {
+      itemAlterado.endereco.cep = fornecedorModificado.endereco.cep;
+      itemAlterado.endereco.complemento =
+        fornecedorModificado.endereco.complemento;
+      itemAlterado.endereco.logradouro =
+        fornecedorModificado.endereco.logradouro;
+      itemAlterado.endereco.numero = fornecedorModificado.endereco.numero;
+      return reply.status(201).send(itemAlterado);
+    } else {
+      return reply.status(404).send("Nenhum item encontrado com esse id");
+    }
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
@@ -53,10 +98,21 @@ export async function putFornecedorContatoController(
   request: FastifyRequest<{ Body: FornecedorContatos }>,
   reply: FastifyReply
 ) {
-  const fornecedorModificado = await putFornecedorContatos(request.body);
+  const fornecedorModificado = request.body;
 
   try {
-    return reply.status(201).send(fornecedorModificado);
+    const itemAlterado: FornecedorContatos = fornecedorMemory.filter(
+      (item) => item.id == fornecedorModificado.id
+    )[0];
+    if (itemAlterado) {
+      itemAlterado.contato.email = fornecedorModificado.contato.email;
+      itemAlterado.contato.telefone = fornecedorModificado.contato.telefone;
+      itemAlterado.contato.nome = fornecedorModificado.contato.nome;
+      itemAlterado.contato.principal = fornecedorModificado.contato.principal;
+      return reply.status(201).send(itemAlterado);
+    } else {
+      return reply.status(404).send("Nenhum item encontrado com esse id");
+    }
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }

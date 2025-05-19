@@ -1,8 +1,8 @@
 import {
-  zRegistroCreateMesa,
-  zRegistroFiltroMesa,
-  zRegistroMesaResponse,
-} from "../schemas/registro-mesa-schema";
+  zMesaCreate,
+  zMesaFiltro,
+  zMesaResponse,
+} from "../schemas/mesa-schema";
 import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
 import z from "zod";
@@ -19,9 +19,9 @@ export async function routesMesa(app: FastifyTypeInstance) {
     schema: {
       tags: [tags.MESA],
       description: "Lista todas as mesas",
-      querystring: zRegistroFiltroMesa,
+      querystring: zMesaFiltro,
       response: {
-        200: z.array(zRegistroMesaResponse),
+        200: z.array(zMesaResponse),
         401: z.string(),
         404: z.string(),
         500: z.string(),
@@ -34,9 +34,9 @@ export async function routesMesa(app: FastifyTypeInstance) {
     schema: {
       tags: [tags.MESA],
       description: "Método para adicionar uma nova mesa",
-      body: zRegistroCreateMesa,
+      body: zMesaCreate,
       response: {
-        200: zRegistroMesaResponse,
+        200: zMesaResponse,
         401: z.string(),
         404: z.string(),
         500: z.string(),
@@ -54,7 +54,7 @@ export async function routesMesa(app: FastifyTypeInstance) {
         quantidade_de_lugares: z.number().positive(),
       }),
       response: {
-        200: zRegistroMesaResponse,
+        200: zMesaResponse,
         401: z.string(),
         404: z.string(),
         500: z.string(),
@@ -81,4 +81,4 @@ export async function routesMesa(app: FastifyTypeInstance) {
     handler: statusMesaController,
   });
 }
-export const zodMesa = zodToJsonSchema(zRegistroMesaResponse);
+export const zodMesa = zodToJsonSchema(zMesaResponse);

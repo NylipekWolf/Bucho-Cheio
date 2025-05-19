@@ -1,35 +1,38 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import {
-  RegistroFiltroMesa,
-  RegistroCreateMesa,
-  RegistroUpdateMesa,
-  RegistroStatusMesa,
-} from "../schemas/registro-mesa-schema";
-import {
-  getMesaService,
-  postMesaService,
-  putMesaService,
-  deleteMesaService,
-  statusMesaService,
-} from "../services/mesa.service";
+  MesaFiltro,
+  MesaCreate,
+  MesaUpdate,
+  MesaStatus,
+  MesaResponse,
+} from "../schemas/mesa-schema";
+import { mesaMemory } from "../memory/mesa-memory";
 
 export async function getMesaController(
-  request: FastifyRequest<{ Querystring: RegistroFiltroMesa }>,
+  request: FastifyRequest<{ Querystring: MesaFiltro }>,
   reply: FastifyReply
 ) {
-  const listaMesa = await getMesaService(request.query);
+  const id = request.query.id;
+  const quantidade_de_lugares = request.query.quantidade_de_lugares;
+  const status = request.query.status;
+  let resultado!: MesaResponse[];
   try {
-    return reply.status(200).send(listaMesa);
+    if (!id && !quantidade_de_lugares && !status) {
+      resultado = mesaMemory;
+      return reply.status(200).send(resultado);
+    }
+    resultado = mesaMemory;
+    return reply.status(200).send(resultado);
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
 }
 
 export async function postMesaController(
-  request: FastifyRequest<{ Body: RegistroCreateMesa }>,
+  request: FastifyRequest<{ Body: MesaCreate }>,
   reply: FastifyReply
 ) {
-  const comandaCriada = await postMesaService(request.body);
+  const comandaCriada = request.body;
   console.log(comandaCriada);
 
   try {
@@ -44,12 +47,12 @@ export async function postMesaController(
 }
 
 export async function putMesaController(
-  request: FastifyRequest<{ Body: RegistroUpdateMesa }>,
+  request: FastifyRequest<{ Body: MesaUpdate }>,
   reply: FastifyReply
 ) {
   console.log("entrou aqui");
 
-  const mesaModificada = await putMesaService(request.body);
+  const mesaModificada = request.body;
 
   try {
     if (mesaModificada === null) {
@@ -65,10 +68,10 @@ export async function putMesaController(
 }
 
 export async function statusMesaController(
-  request: FastifyRequest<{ Body: RegistroStatusMesa }>,
+  request: FastifyRequest<{ Body: MesaStatus }>,
   reply: FastifyReply
 ) {
-  const mesaModificada = await statusMesaService(request.body);
+  const mesaModificada = request.body;
 
   try {
     if (mesaModificada === null) {
@@ -85,7 +88,7 @@ export async function deleteMesaController(
   request: FastifyRequest<{ Body: { id: number } }>,
   reply: FastifyReply
 ) {
-  const pedidoDeletado = await deleteMesaService(request.body.id);
+  const pedidoDeletado = request.body.id;
 
   try {
     if (pedidoDeletado) {

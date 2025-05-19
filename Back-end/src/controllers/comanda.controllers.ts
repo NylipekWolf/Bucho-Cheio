@@ -1,21 +1,52 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { comandaCreate, comandaRequest, comandaStatusRequest, filtroComanda, zFiltroComanda } from "../schemas/comanda-schema";
-import { deleteComandaService, getComandaService, postComandaService, putComandaService, putComandaStatusService} from "../services/comanda.service";
+import {
+  comandaCreate,
+  comandaRequest,
+  comandaStatusRequest,
+  filtroComanda,
+  comandaResponse,
+} from "../schemas/comanda-schema";
 import z from "zod";
+
+import { ComandaMemory } from "../memory/comanda-memory";
 
 export async function getComandaController(
   request: FastifyRequest<{ Querystring: filtroComanda }>,
   reply: FastifyReply
 ) {
-  const listaComandas = await getComandaService(request.query);
+  const query = request.query;
+  let resultado: comandaResponse[];
 
   try {
-    // response 404 e 200
-    if (listaComandas.length === 0) {
-      return reply.status(404).send("Nenhuma comanda encontrado");
-    } else {
-      return reply.status(200).send(listaComandas);
+    if (!query.id && !query.mesa && !query.status) {
+      resultado = ComandaMemory.map((item) => {
+        return {
+          id: item.id,
+          status: item.status,
+          nome: item.nome,
+          preco: item.preco,
+          pedidos: item.pedidos,
+          id_mesa: item.id_mesa,
+        };
+      });
+      return reply.status(200).send(resultado);
     }
+    resultado = ComandaMemory.filter(
+      (item) =>
+        item.id == query.id ||
+        item.id_mesa == query.mesa ||
+        item.status.includes(query.status)
+    ).map((item) => {
+      return {
+        id: item.id,
+        status: item.status,
+        nome: item.nome,
+        preco: item.preco,
+        pedidos: item.pedidos,
+        id_mesa: item.id_mesa,
+      };
+    });
+    return reply.status(200).send(resultado);
   } catch (error) {
     //reponse 500
     return reply.status(500).send("Erro no servidor.");
@@ -26,14 +57,17 @@ export async function postComandaController(
   request: FastifyRequest<{ Body: comandaCreate }>,
   reply: FastifyReply
 ) {
-  const comandaCriada = await postComandaService(request.body);
+  const comandaCriada = request.body;
 
   try {
-    if(comandaCriada === null) {
-      return reply.status(404).send("Erro de validação"); //Qual code usar
-    } else {
-      return reply.status(201).send(comandaCriada);
-    }
+    const id = ComandaMemory.length;
+    ComandaMemory.push({
+      ...comandaCriada,
+      id: id,
+      status: "Aberta",
+      preco: 0,
+    });
+    return reply.status(201).send(comandaCriada);
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
@@ -43,19 +77,20 @@ export async function putComandaController(
   request: FastifyRequest<{ Body: comandaRequest }>,
   reply: FastifyReply
 ) {
-  const comandaModificada = await putComandaService(request.body);
-
-  //Response 401
-  // if(!hasPermission){
-  //   return reply.status(401).send("Não autorizado");
-  // }
+  const comandaModificada = request.body;
 
   try {
-    if(comandaModificada === null) {
-      return reply.status(404).send("Comanda não existe"); //Qual code usar
+    const itemAlterado = ComandaMemory.filter(
+      (item) => item.id == comandaModificada.id
+    )[0];
+
+    if (itemAlterado.pedidos == null) {
+      itemAlterado.pedidos = comandaModificada.pedidos;
     } else {
-      return reply.status(200).send(comandaModificada);
+      itemAlterado.pedidos.push(...comandaModificada.pedidos);
     }
+
+    return reply.status(201).send(itemAlterado);
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
@@ -65,31 +100,31 @@ export async function putComandaStatusController(
   request: FastifyRequest<{ Body: comandaStatusRequest }>,
   reply: FastifyReply
 ) {
-  const comandaModificada = await putComandaStatusService(request.body);
+  const comandaModificada = request.body;
 
   try {
-    if(comandaModificada === null) {
-      return reply.status(404).send("Comanda não existe"); //Qual code usar
-    } else {
-      return reply.status(200).send(comandaModificada);
-    }
+    const itemAlterado = ComandaMemory.filter(
+      (item) => item.id == comandaModificada.id
+    )[0];
+
+    itemAlterado.status = comandaModificada.status;
+
+    return reply.status(201).send(itemAlterado);
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
 }
 
 export async function deleteComandaController(
-  request: FastifyRequest<{ Body: {id: number} }>,
+  request: FastifyRequest<{ Body: { id: number } }>,
   reply: FastifyReply
 ) {
-  const pedidoDeletado = await deleteComandaService(request.body.id);
+  const comandaDeletada = request.body.id;
 
   try {
-    if(pedidoDeletado) {
-      return reply.status(204).send("Comanda removida com sucesso.");
-    } else {
-      return reply.status(404).send("Comanda não existe");
-    }
+    //Método delete
+
+    return reply.status(204).send("Comanda removida com sucesso.");
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }

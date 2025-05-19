@@ -12,7 +12,6 @@ import { routesComanda } from "../routes/comanda.routes";
 import { routesIngrediente } from "../routes/ingrediente.routes";
 import { zodMesa, routesMesa } from "../routes/mesa.routes";
 import { routesPedido } from "../routes/pedido.routes";
-import { routesUsuario } from "../routes/usuario.routes";
 import { routesFornecedor } from "../routes/fornecedor.routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -42,7 +41,6 @@ app.register(routesIngrediente);
 app.register(routesFornecedor);
 app.register(routesPedido);
 app.register(routesComanda);
-app.register(routesUsuario);
 
 const start = async () => {
   await app.listen({ port: 3000 });
