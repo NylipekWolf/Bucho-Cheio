@@ -78,23 +78,4 @@ export async function routesPedido(app: FastifyTypeInstance) {
     handler: deletePedidoController,
   });
 
-  app.get(
-    "/pedido/historico",
-    {
-      schema: {
-        tags: [tags.PEDIDO],
-        description: "Lista historico dos pedidos",
-        querystring: zFiltroPedido,
-        response: {
-          200: z.array(zPedidosResponse),
-          401: z.string(),
-          404: z.string(),
-          500: z.string(),
-        },
-      },
-    },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
-  );
 }
