@@ -7,7 +7,7 @@ export const zComandaResponse = z
     nome: z.string().nullable(),
     preco: z.number().describe("Preco da comanda"),
     status: z.string().describe("Status da comanda"),
-    id_mesa: z.number().optional().nullable(),
+    id_mesa: z.number().nullable(),
     pedidos: z.array(z.number()).nullable(),
   })
   .describe("Comanda Response");
@@ -30,7 +30,7 @@ export const zComandaCreate = z
   .object({
     nome: z.string().nullable(),
     pedidos: z.array(z.coerce.number()),
-    mesa: z.coerce.number().nullable(),
+    id_mesa: z.coerce.number().nullable(),
   })
   .describe("Criação de Comanda");
 
@@ -52,7 +52,7 @@ export const zComandaImprimirResponse = z
 export const zFiltroComanda = z
   .object({
     id: z.coerce.number().optional(),
-    status: statusComanda,
+    status: statusComanda.optional(),
     mesa: z.coerce.number().optional(),
   })
   .describe("Filtro para métodos de listagem.");

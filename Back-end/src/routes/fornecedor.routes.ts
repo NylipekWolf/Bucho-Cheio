@@ -1,4 +1,4 @@
-import { FastifyTypeInstance } from "../types";
+import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
 import z, { number } from "zod";
 import {
@@ -9,6 +9,7 @@ import {
   zFornecedorContatos,
 } from "../schemas/fornecedor-schema";
 import {
+  deleteFornecedorController,
   getFornecedorController,
   postFornecedorController,
   putFornecedorContatoController,
@@ -86,23 +87,22 @@ export async function routesFornecedor(app: FastifyTypeInstance) {
     handler: putFornecedorContatoController,
   });
 
-  // app.delete(
-  //   "/fornecedor/:id",
-  //   {
-  //     schema: {
-  //       tags: [tags.FORNECEDOR],
-  //       description: "Metodo para deletar um fornecedor",
-  //       params: z.object({
-  //         id: number().int().positive(),
-  //       }),
-  //       response: {
-  //         204: z.string(),
-  //         401: z.string(),
-  //         404: z.string(),
-  //         500: z.string(),
-  //       },
-  //     },
-  //   },
-  //   async (request, reply) => {}
-  // );
+  app.delete(
+    "/fornecedor",
+    {
+      schema: {
+        tags: [tags.FORNECEDOR],
+        description: "Metodo para deletar um fornecedor",
+        body: z.object({
+          id: z.coerce.number().int(),
+        }),
+        response: {
+          204: z.string(),
+          401: z.string(),
+          404: z.string(),
+          500: z.string(),
+        },
+      },
+      handler: deleteFornecedorController
+    });
 }

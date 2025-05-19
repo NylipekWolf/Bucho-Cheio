@@ -2,8 +2,8 @@ import z from "zod";
 import { statusMesa } from "../enums/status.enum";
 export const zMesaResponse = z
   .object({
-    id: z.number().int().positive(),
-    status: z.string().describe("Disponibilidade da mesas"),
+    id: z.number().int(),
+    status: statusMesa.describe("Disponibilidade da mesas"),
     quantidade_de_lugares: z
       .number()
       .positive()
@@ -13,18 +13,18 @@ export const zMesaResponse = z
 
 export const zMesaCreate = z
   .object({
-    quantidade_de_lugares: z.number().positive(),
+    quantidade_de_lugares: z.coerce.number().positive(),
   })
   .describe("CreateMesa");
 
 export const zUpdateMesa = z.object({
-  id: z.number(),
-  quantidade_de_lugares: z.number().positive(),
+  id: z.coerce.number(),
+  quantidade_de_lugares: z.coerce.number().positive(),
 });
 
 export const zMesaStatus = z.object({
-  id: z.number(),
-  status: z.string(),
+  id: z.coerce.number(),
+  status: statusMesa,
 });
 
 export const zMesaFiltro = z.object({

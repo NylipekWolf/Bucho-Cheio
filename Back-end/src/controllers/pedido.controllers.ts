@@ -5,7 +5,6 @@ import {
   pedidoStatusRequest,
 } from "../schemas/pedido-schema";
 
-import z from "zod";
 
 export async function getPedidoController(
   request: FastifyRequest<{ Querystring: filtroPedido }>,

@@ -6,7 +6,6 @@ import {
   filtroComanda,
   comandaResponse,
 } from "../schemas/comanda-schema";
-import z from "zod";
 
 import { ComandaMemory } from "../memory/comanda-memory";
 
@@ -18,7 +17,7 @@ export async function getComandaController(
   let resultado: comandaResponse[];
 
   try {
-    if (!query.id && !query.mesa && !query.status) {
+    if (query.id == null && query.mesa == null && query.status == null) {
       resultado = ComandaMemory.map((item) => {
         return {
           id: item.id,
@@ -30,23 +29,25 @@ export async function getComandaController(
         };
       });
       return reply.status(200).send(resultado);
+    } else {
+      resultado = ComandaMemory.filter(
+        (item) =>
+          item.id == query.id ||
+          item.id_mesa == query.mesa ||
+          item.status.includes(query.status as string)
+      ).map((item) => {
+        return {
+          id: item.id,
+          status: item.status,
+          nome: item.nome,
+          preco: item.preco,
+          pedidos: item.pedidos,
+          id_mesa: item.id_mesa,
+        };
+      });
+      return reply.status(200).send(resultado);
     }
-    resultado = ComandaMemory.filter(
-      (item) =>
-        item.id == query.id ||
-        item.id_mesa == query.mesa ||
-        item.status.includes(query.status)
-    ).map((item) => {
-      return {
-        id: item.id,
-        status: item.status,
-        nome: item.nome,
-        preco: item.preco,
-        pedidos: item.pedidos,
-        id_mesa: item.id_mesa,
-      };
-    });
-    return reply.status(200).send(resultado);
+    
   } catch (error) {
     //reponse 500
     return reply.status(500).send("Erro no servidor.");
@@ -67,7 +68,7 @@ export async function postComandaController(
       status: "Aberta",
       preco: 0,
     });
-    return reply.status(201).send(comandaCriada);
+    return reply.status(201).send(ComandaMemory[-1]);
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
@@ -119,12 +120,13 @@ export async function deleteComandaController(
   request: FastifyRequest<{ Body: { id: number } }>,
   reply: FastifyReply
 ) {
-  const comandaDeletada = request.body.id;
-
+  const comandaDeletada = ComandaMemory.find((item) => item.id == request.body.id)
   try {
-    //Método delete
-
-    return reply.status(204).send("Comanda removida com sucesso.");
+    if (comandaDeletada != undefined) {
+      ComandaMemory.splice(ComandaMemory.indexOf(comandaDeletada), 1);
+      return reply.status(204).send("Comanda removida com sucesso.");
+    }
+    return reply.status(404).send("Comanda não existe");
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }

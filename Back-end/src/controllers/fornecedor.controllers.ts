@@ -19,7 +19,7 @@ export async function getFornecedorController(
   const telefone = request.query.telefone;
   let resultado!: FornecedorResponse[];
   try {
-    if (!nome && !id && !email && !telefone) {
+    if (nome == null && id == null && email == null && telefone == null) {
       resultado = fornecedorMemory.map((item) => {
         return {
           id: item.id,
@@ -85,7 +85,7 @@ export async function putFornecedorEnderecoController(
       itemAlterado.endereco.logradouro =
         fornecedorModificado.endereco.logradouro;
       itemAlterado.endereco.numero = fornecedorModificado.endereco.numero;
-      return reply.status(201).send(itemAlterado);
+      return reply.status(201).send(itemAlterado.endereco);
     } else {
       return reply.status(404).send("Nenhum item encontrado com esse id");
     }
@@ -109,11 +109,27 @@ export async function putFornecedorContatoController(
       itemAlterado.contato.telefone = fornecedorModificado.contato.telefone;
       itemAlterado.contato.nome = fornecedorModificado.contato.nome;
       itemAlterado.contato.principal = fornecedorModificado.contato.principal;
-      return reply.status(201).send(itemAlterado);
+      return reply.status(201).send(itemAlterado.contato);
     } else {
       return reply.status(404).send("Nenhum item encontrado com esse id");
     }
   } catch (error) {
     return reply.status(500).send("Erro no servidor.");
   }
+}
+
+export async function deleteFornecedorController (
+  request: FastifyRequest<{ Body: { id: number } }>,
+  reply: FastifyReply
+) {
+  const fornecedorDeletado = fornecedorMemory.find((item) => item.id == request.body.id)
+    try {
+      if (fornecedorDeletado != undefined) {
+        fornecedorMemory.splice(fornecedorMemory.indexOf(fornecedorDeletado), 1);
+        return reply.status(204).send("Comanda removida com sucesso.");
+      }
+      return reply.status(404).send("Comanda não existe");
+    } catch (error) {
+      return reply.status(500).send("Erro no servidor.");
+    }
 }

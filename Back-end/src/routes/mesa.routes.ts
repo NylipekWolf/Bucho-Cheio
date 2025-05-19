@@ -2,6 +2,7 @@ import {
   zMesaCreate,
   zMesaFiltro,
   zMesaResponse,
+  zMesaStatus,
 } from "../schemas/mesa-schema";
 import { FastifyTypeInstance } from "../config/types";
 import { tags } from "../utils/tags";
@@ -36,7 +37,7 @@ export async function routesMesa(app: FastifyTypeInstance) {
       description: "Método para adicionar uma nova mesa",
       body: zMesaCreate,
       response: {
-        200: zMesaResponse,
+        201: zMesaResponse,
         401: z.string(),
         404: z.string(),
         500: z.string(),
@@ -54,7 +55,7 @@ export async function routesMesa(app: FastifyTypeInstance) {
         quantidade_de_lugares: z.number().positive(),
       }),
       response: {
-        200: zMesaResponse,
+        201: zMesaResponse,
         401: z.string(),
         404: z.string(),
         500: z.string(),
@@ -67,12 +68,9 @@ export async function routesMesa(app: FastifyTypeInstance) {
     schema: {
       tags: [tags.MESA],
       description: "Método para atualizar o status de uma mesa",
-      body: z.object({
-        id: z.number().positive(),
-        status: z.number().int().max(2).min(0),
-      }),
+      body: zMesaStatus,
       response: {
-        200: z.string(),
+        201: zMesaResponse,
         401: z.string(),
         404: z.string(),
         500: z.string(),

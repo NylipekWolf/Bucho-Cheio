@@ -82,7 +82,7 @@ export async function routesComanda(app: FastifyTypeInstance) {
       tags: [tags.COMANDA],
       description: "Remove uma comanda",
       body: z.object({
-        id: z.number().positive(),
+        id: z.coerce.number().positive(),
       }),
       response: {
         204: z.string(),

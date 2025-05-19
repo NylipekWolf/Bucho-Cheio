@@ -83,24 +83,4 @@ export async function routesIngrediente(app: FastifyTypeInstance) {
       handler: deleteIngredienteController
     },
   );
-
-  app.get(
-    "/ingrediente/historico",
-    {
-      schema: {
-        tags: [tags.INGREDIENTE],
-        description: "Lista historico dos ingredientes",
-        querystring: zFiltroIngrediente,
-        response: {
-          200: z.array(zIngredientesResponse),
-          401: z.string(),
-          404: z.string(),
-          500: z.string(),
-        },
-      },
-    },
-    async (request, reply) => {
-      return reply.status(200).send();
-    }
-  );
 }
